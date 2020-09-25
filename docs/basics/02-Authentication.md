@@ -25,4 +25,5 @@ Authorization: Basic QWxhZGRpbjpPcGVuU2VzYW1l
 Your API credentials usually look like this:
 
 > Username (API User): *d8fb61fe-0a4f-4e11-81f8-6efd3513bd43*
+>
 > Password (API Key): *976ff6f2-3528-4f4f-9e7d-007e9a074037*
