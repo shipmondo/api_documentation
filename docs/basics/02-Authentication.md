@@ -10,3 +10,4 @@ A free account can be created here, and once the account is created and you’re
 
 ![Getting API key ](api-access.png)
 
+HEJ
