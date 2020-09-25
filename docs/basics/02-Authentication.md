@@ -6,9 +6,9 @@ tags: [Basics]
 
 ### Obtaining API credentials
 
-Getting started with our RESTful API is easy. You’ll need an account at Shipmondo, as well as an API username and an API key.
+Getting started with our RESTful API is easy. You need an account at Shipmondo, as well as an API username and an API key.
 
-A free account can be created here, and once the account is created and you’re logged in, the API username and key can be generated from the API settings page, **Settings > API > Access.**
+A free account can be created [here](https://app.shipmondo.com/account/sign-up?locale=da), and once the account is created and you are logged in, the API username and key can be generated from the API settings page, **Settings > API > Access.**
 
 Your API credentials usually look like this:
 
