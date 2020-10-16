@@ -1,11 +1,8 @@
 swagger: '2.0'
-version: 3.0.0
 title: API v3
 contact:
   email: support@shipmondo.com
-
 host: 'app.shipmondo.com'
-
 basePath: /api/public/v3
 schemes:
   - https
