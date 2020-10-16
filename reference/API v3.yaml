@@ -18,7 +18,7 @@ info:
     We provide an official library for PHP: https://github.com/shipmondo/shipmondo_php_sdk
 
   version: 3.0.0
-  title: Shipmondo
+  title: Shipmondo API v3
   contact:
     email: support@shipmondo.com
 
