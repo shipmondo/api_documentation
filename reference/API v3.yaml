@@ -1,5 +1,5 @@
 swagger: '2.0'
-title: API v3
+title: 'API v3'
 contact:
   email: support@shipmondo.com
 host: 'app.shipmondo.com'
