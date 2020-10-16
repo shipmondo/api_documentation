@@ -16,14 +16,19 @@ info:
     The older API V2 is still being supported but no longer extended. Documentation: https://api.pakkelabels.dk/v2/
 
     We provide an official library for PHP: https://github.com/shipmondo/shipmondo_php_sdk
+
   version: 3.0.0
   title: Shipmondo
   contact:
     email: support@shipmondo.com
-host: app.shipmondo.com
+
+host: 'app.shipmondo.com'
+
 basePath: /api/public/v3
 schemes:
   - https
+
+#region Tags
 tags:
   - name: authentication
     description: Authentication
@@ -65,12 +70,16 @@ tags:
     description: Pickup Requests
   - name: pick_lists
     description: Pick Lists
+#endregion
+
 paths:
+
+  #region Account
   /account/balance:
     get:
       tags:
         - account
-      summary: Get current balance
+      summary: 'Get current balance'
       description: |
         Get current balance for the account
       operationId: account_balance_get
@@ -86,14 +95,14 @@ paths:
             properties:
               amount:
                 type: number
-                example: 1000.5
+                example: 1000.50
               currency_code:
                 type: string
-                example: DKK
+                example: "DKK"
               updated_at:
                 type: string
                 format: date-time
-                example: '2017-06-19T00:00:00.000+02:00'
+                example: "2017-06-19T00:00:00.000+02:00"
             xml:
               name: response
         '401':
@@ -104,7 +113,7 @@ paths:
     get:
       tags:
         - account
-      summary: Get payment requests
+      summary: 'Get payment requests'
       description: |
         Get payment requests
       operationId: payment_requests_get
@@ -113,34 +122,34 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: created_at_min
-          in: query
-          type: string
-          format: date-time
+        - name: "created_at_min"
+          in: "query"
+          type: "string"
+          format: "date-time"
           description: |
             From timestamp for the payment requests that need to be considered for filter. Examples:
             * 2017-06-19T11:00:03.305+02:00
             * 2017-06-19 will be transformed into 2017-06-19T00:00:00.000+02:00
           required: false
-        - name: created_at_max
-          in: query
-          type: string
-          format: date-time
+        - name: "created_at_max"
+          in: "query"
+          type: "string"
+          format: "date-time"
           description: |
             To timestamp for the payment requests that need to be considered for filter. Examples:
             * 2017-06-29T11:00:03.305+02:00
             * 2017-06-29 will be transformed into 2017-06-29T00:00:00.000+02:00
           required: false
-        - name: per_page
-          in: query
-          type: integer
-          format: int32
+        - name: "per_page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining how many entries returned per page. Default 20. Max 50.
           required: false
-        - name: page
-          in: query
-          type: integer
-          format: int32
+        - name: "page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining which page is the results are fetched from. Default 1.
       responses:
         '200':
@@ -166,11 +175,14 @@ paths:
           $ref: '#/definitions/Response 401'
       security:
         - basicAuth: []
+  #endregion
+
+  #region Products
   /products:
     get:
       tags:
         - products
-      summary: Get available products
+      summary: 'Get available products'
       description: |
         Gets the products and services
 
@@ -183,68 +195,68 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: query
-          type: integer
-          format: int32
-          description: ID for the product that need to be considered for filter
+        - name: "id"
+          in: "query"
+          type: "integer"
+          format: "int32"
+          description: "ID for the product that need to be considered for filter"
           required: false
-        - name: product_code
-          in: query
-          type: string
+        - name: "product_code"
+          in: "query"
+          type: "string"
           description: |
             Code for the product that need to be considered for filter
 
             Examples: GLSDK_SD, PDK_MH, DAO_P etc.
           required: false
-        - name: sender_country_code
-          in: query
+        - name: "sender_country_code"
+          in: "query"
           description: |
             Country code (ISO Alpha-2) of the sender country that need to be considered for filter.
 
             Examples: DK, SE, DE, etc.
           required: false
-          type: string
-          default: DK
-        - name: receiver_country_code
-          in: query
+          type: "string"
+          default: "DK"
+        - name: "receiver_country_code"
+          in: "query"
           description: |
             Country code (ISO Alpha-2) of the receiver country that need to be considered for filter.
 
             Examples: DK, SE, DE, etc.
           required: false
-          type: string
-          default: DK
-        - name: carrier_code
-          in: query
-          type: string
+          type: "string"
+          default: "DK"
+        - name: "carrier_code"
+          in: "query"
+          type: "string"
           description: |
             Carrier code that need to be considered for filter
 
             Examples: bring, dao, dfm, dhl_express, dsv, gls, pdk, xpressen, brink
           required: false
           enum:
-            - bring
-            - dao
-            - dfm
-            - dhl_express
-            - dsv
-            - gls
-            - pdk
-            - xpressen
-            - ups
-            - brink
+          - "bring"
+          - "dao"
+          - "dfm"
+          - "dhl_express"
+          - "dsv"
+          - "gls"
+          - "pdk"
+          - "xpressen"
+          - "ups"
+          - "brink"
           default: gls
-        - name: per_page
-          in: query
-          type: integer
-          format: int32
+        - name: "per_page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining how many entries returned per page. Default 20. Max 50.
           required: false
-        - name: page
-          in: query
-          type: integer
-          format: int32
+        - name: "page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining which page is the results are fetched from. Default 1.
       responses:
         '200':
@@ -272,11 +284,14 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
+  #endregion
+
+  #region Package Types
   /package_types:
     get:
       tags:
-        - package_types
-      summary: Get available package types for carrier product
+      - package_types
+      summary: 'Get available package types for carrier product'
       description: |
         Gets the package types for a product.
 
@@ -285,15 +300,15 @@ paths:
         The code of the package type is used when giving parcels in the creation of shipments.
       operationId: package_types_get
       consumes:
-        - application/json
+      - application/json
       produces:
-        - application/json
+      - application/json
       parameters:
-        - name: product_code
-          in: query
-          type: string
-          description: Code for the product that need to be considered for filter
-          required: false
+      - name: "product_code"
+        in: "query"
+        type: "string"
+        description: "Code for the product that need to be considered for filter"
+        required: false
       responses:
         '200':
           description: Successful.
@@ -306,12 +321,15 @@ paths:
         '404':
           $ref: '#/definitions/Response 404'
       security:
-        - basicAuth: []
+      - basicAuth: []
+  #endregion
+
+  #region Shipments
   /shipments:
     get:
       tags:
         - shipments
-      summary: Get Shipments
+      summary: 'Get Shipments'
       description: |
         Gets the shipments for the user.
       operationId: shipments_get
@@ -320,75 +338,75 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: query
-          type: integer
-          format: int32
-          description: ID for the shipment that need to be considered for filter
+        - name: "id"
+          in: "query"
+          type: "integer"
+          format: "int32"
+          description: "ID for the shipment that need to be considered for filter"
           required: false
-        - name: order_id
-          in: query
-          type: string
-          description: Order ID for the shipments that need to be considered for filter
+        - name: "order_id"
+          in: "query"
+          type: "string"
+          description: "Order ID for the shipments that need to be considered for filter"
           required: false
-        - name: package_number
-          in: query
-          type: string
-          description: Package number for the shipments that need to be considered for filter
+        - name: "package_number"
+          in: "query"
+          type: "string"
+          description: "Package number for the shipments that need to be considered for filter"
           required: false
-        - name: carrier_code
-          in: query
-          type: string
+        - name: "carrier_code"
+          in: "query"
+          type: "string"
           description: |
             Carrier code that need to be considered for filter
 
             Examples: bring, dao, dfm, dhl_express, gls, pdk, brink
           required: false
           enum:
-            - bring
-            - dao
-            - dfm
-            - dhl_express
-            - gls
-            - pdk
-            - xpressen
-            - brink
-        - name: receiver_country
-          in: query
+          - "bring"
+          - "dao"
+          - "dfm"
+          - "dhl_express"
+          - "gls"
+          - "pdk"
+          - "xpressen"
+          - "brink"
+        - name: "receiver_country"
+          in: "query"
           description: |
             Country code (ISO Alpha-2) that need to be considered for filter.
 
             Examples: DK, SE, DE, etc.
           required: false
-          type: string
-        - name: created_at_min
-          in: query
-          type: string
-          format: date-time
+          type: "string"
+        - name: "created_at_min"
+          in: "query"
+          type: "string"
+          format: "date-time"
           description: |
             From timestamp for the shipments that need to be considered for filter. Examples:
             * 2017-06-19T11:00:03.305+02:00
             * 2017-06-19 will be transformed into 2017-06-19T00:00:00.000+02:00
           required: false
-        - name: created_at_max
-          in: query
-          type: string
-          format: date-time
+        - name: "created_at_max"
+          in: "query"
+          type: "string"
+          format: "date-time"
           description: |
             To timestamp for the shipments that need to be considered for filter. Examples:
             * 2017-06-29T11:00:03.305+02:00
             * 2017-06-29 will be transformed into 2017-06-29T00:00:00.000+02:00
           required: false
-        - name: per_page
-          in: query
-          type: integer
-          format: int32
+        - name: "per_page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining how many entries returned per page. Default 20. Max 50.
           required: false
-        - name: page
-          in: query
-          type: integer
-          format: int32
+        - name: "page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining which page is the results are fetched from. Default 1.
       responses:
         '200':
@@ -419,7 +437,7 @@ paths:
     post:
       tags:
         - shipments
-      summary: Create a new Shipment
+      summary: 'Create a new Shipment'
       description: |
         Create a new shipment.
       operationId: shipments_post
@@ -446,60 +464,6 @@ paths:
           description: Successful.
           schema:
             $ref: '#/definitions/Shipment'
-          headers:
-            header-0:
-              type: string
-            header-1:
-              type: string
-          examples:
-            example-1:
-              id: 1168
-              created_at: '2017-06-16T08:25:44.557+02:00'
-              updated_at: '2017-06-16T08:25:44.557+02:00'
-              carrier_code: gls
-              description: 'Til Pakkeshop 5,0 kg'
-              product_id: 64
-              services: '23, 24'
-              product_code: GLSDK_SD
-              service_codes: 'EMAIL_NT,SMS_NT'
-              price: '42.5'
-              reference: Webshop 5678
-              order_id: '1000002345'
-              pkg_no: '6064518784'
-              receiver:
-                name: Lene Hansen
-                attention: null
-                address1: Skibhusvej 52
-                address2: null
-                zipcode: '5000'
-                city: Odense C
-                country_code: DK
-                email: lene@email.dk
-                mobile: '12345678'
-                telephone: '12345678'
-                instruction: null
-              sender:
-                name: Min Virksomhed ApS
-                attention: Lene Hansen
-                address1: Strandvejen 6B
-                address2: null
-                zipcode: '5240'
-                city: Odense NØ
-                country_code: DK
-                email: info@minvirksomhed.dk
-                mobile: '70400407'
-                telephone: '70400407'
-              service_point:
-                id: '95558'
-                name: Påskeløkkens Købmand
-                address1: Paaskeløkkevej 11
-                address2: null
-                zipcode: '5000'
-                city: Odense C
-                country_code: DK
-              pick_up: {}
-              paperless_trade: false
-              labelless_code: 123-4567-890
         '401':
           $ref: '#/definitions/Response 401'
         '404':
@@ -508,11 +472,11 @@ paths:
           $ref: '#/definitions/Response 422'
       security:
         - basicAuth: []
-  '/shipments/{id}':
+  /shipments/{id}:
     get:
       tags:
         - shipments
-      summary: Get Shipment with specific ID
+      summary: 'Get Shipment with specific ID'
       description: |
         Gets the shipment with specific ID for the user.
       operationId: shipment_get
@@ -521,11 +485,11 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the shipment that need to be considered for filter
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the shipment that need to be considered for filter"
           required: true
       responses:
         '200':
@@ -538,11 +502,14 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
-  '/shipments/{id}/labels':
+  #endregion
+
+  #region Labels
+  /shipments/{id}/labels:
     get:
       tags:
         - shipments
-      summary: Get Labels for Shipment with specific ID
+      summary: 'Get Labels for Shipment with specific ID'
       description: |
         Gets labels for the shipment with specific ID. Labels are delivered as Base64 encoded data.
       operationId: shipment_labels
@@ -551,41 +518,45 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the shipment that need to be considered for filter
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the shipment that need to be considered for filter"
           required: true
-        - name: format
-          in: query
-          type: string
+        - name: "format"
+          in: "query"
+          type: "string"
           description: |
             Format for the labels. Available: a4_pdf, 10x19_pdf, png, zpl
           required: false
           enum:
-            - a4_pdf
-            - 10x19_pdf
-            - png
-            - zpl
+          - "a4_pdf"
+          - "10x19_pdf"
+          - "png"
+          - "zpl"
       responses:
         '200':
           description: Successful.
           schema:
             type: array
             items:
-              $ref: '#/definitions/Label'
+              $ref: "#/definitions/Label"
         '401':
           $ref: '#/definitions/Response 401'
         '404':
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
-  '/shipments/{id}/proforma_invoices':
+
+  #endregion
+
+  #region Proforma Invoices
+  /shipments/{id}/proforma_invoices:
     get:
       tags:
         - shipments
-      summary: Get Proforma Invoices for Shipment with specific ID
+      summary: 'Get Proforma Invoices for Shipment with specific ID'
       description: |
         Gets proforma invoices for the shipment with specific ID. Proforma Invoices are generated based on the Customs data received and delivered as Base64 encoded data. Only necessary to use when Paperless Trade is not available.
       operationId: proforma_invoices_get
@@ -594,11 +565,11 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the shipment that need to be considered for filter
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the shipment that need to be considered for filter"
           required: true
       responses:
         '200':
@@ -606,18 +577,21 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Proforma Invoice'
+              $ref: "#/definitions/Proforma Invoice"
         '401':
           $ref: '#/definitions/Response 401'
         '404':
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
-  '/shipments/{id}/waybills':
+  #endregion
+
+  #region Waybills
+  /shipments/{id}/waybills:
     get:
       tags:
         - shipments
-      summary: Get Waybills for Shipment with specific ID
+      summary: 'Get Waybills for Shipment with specific ID'
       description: |
         Gets waybills for the shipment with specific ID. Waybills are carrier specific and compared to collected waybills these only cover one shipment. Only Danske Fragtmænd supports this at the moment when "INCL_WAYBILL" services is booked.
       operationId: shipment_waybill_get
@@ -626,11 +600,11 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the shipment that need to be considered for filter
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the shipment that need to be considered for filter"
           required: true
       responses:
         '200':
@@ -638,12 +612,15 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Document'
+              $ref: "#/definitions/Document"
         '404':
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
-  '/shipments/{id}/cancel_at_carrier':
+  #endregion
+
+  #region Shipment Cancel
+  /shipments/{id}/cancel_at_carrier:
     put:
       tags:
         - shipments
@@ -656,28 +633,32 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the shipment that need to be considered for filter
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the shipment that need to be considered for filter"
           required: true
       responses:
         '200':
           description: Successful.
           schema:
-            $ref: '#/definitions/Shipment Cancelled'
+            $ref: "#/definitions/Shipment Cancelled"
         '401':
           $ref: '#/definitions/Response 401'
         '404':
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
+
+  #endregion
+
+  #region CMR Waybills
   /cmr_waybills:
     get:
       tags:
         - cmr_waybills
-      summary: Get CMR waybills
+      summary: 'Get CMR waybills'
       description: |
         Gets the CMR waybills for the user (excluding Base64 PDF).
       operationId: cmr_waybills_get
@@ -686,40 +667,40 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: query
-          type: integer
-          format: int32
-          description: ID for the CMR waybill that need to be considered for filter
+        - name: "id"
+          in: "query"
+          type: "integer"
+          format: "int32"
+          description: "ID for the CMR waybill that need to be considered for filter"
           required: false
-        - name: reference
-          in: query
-          type: string
-          description: Reference for the CMR waybill that need to be considered for filter
+        - name: "reference"
+          in: "query"
+          type: "string"
+          description: "Reference for the CMR waybill that need to be considered for filter"
           required: false
-        - name: carrier_code
-          in: query
-          type: string
+        - name: "carrier_code"
+          in: "query"
+          type: "string"
           description: |
             Carrier code that need to be considered for filter
 
             Examples: bring
           required: false
           enum:
-            - bring
-        - name: per_page
-          in: query
-          type: integer
-          format: int32
+            - "bring"
+        - name: "per_page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining how many entries returned per page. Default 20. Max 50.
           required: false
-        - name: page
-          in: query
-          type: integer
-          format: int32
+        - name: "page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining which page is the results are fetched from. Default 1.
       responses:
-        '200':
+        200:
           description: Successful.
           headers:
             X-Per-Page:
@@ -745,7 +726,7 @@ paths:
     post:
       tags:
         - cmr_waybills
-      summary: Create a new CMR waybill and associated routing label shipments
+      summary: 'Create a new CMR waybill and associated routing label shipments'
       description: |
         Create a new CMR waybill and associated routing label shipments
       operationId: cmr_waybills_post
@@ -756,7 +737,10 @@ paths:
       parameters:
         - in: body
           name: body
-          description: 'CMR Waybill Object.<br> <strong>Note</strong>; loading (except date) and delivery is optional.<br> If not all fields are giving, loading will be overwritten by receiver (except date) and delivery will be overwritten by sender.'
+          description:
+            CMR Waybill Object.<br>
+            <strong>Note</strong>; loading (except date) and delivery is optional.<br>
+            If not all fields are giving, loading will be overwritten by receiver (except date) and delivery will be overwritten by sender.
           required: true
           schema:
             $ref: '#/definitions/Create CMR Waybill Request'
@@ -773,11 +757,11 @@ paths:
           $ref: '#/definitions/Response 422'
       security:
         - basicAuth: []
-  '/cmr_waybills/{id}':
+  /cmr_waybills/{id}:
     get:
       tags:
         - cmr_waybills
-      summary: Get CMR Waybill (including Base64 PDF) with specific ID
+      summary: 'Get CMR Waybill (including Base64 PDF) with specific ID'
       description: |
         Gets the CMR waybill with specific ID for the user. The response include the Base64 for the CMR waybill PDF
       operationId: cmr_waybills_show
@@ -786,11 +770,11 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the CMR waybill that need to be considered for filter
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the CMR waybill that need to be considered for filter"
           required: true
       responses:
         '200':
@@ -803,11 +787,14 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
+  #endregion
+
+  #region Imported Shipments
   /imported_shipments:
     get:
       tags:
         - imported_shipments
-      summary: Get Imported Shipments
+      summary: 'Get Imported Shipments'
       description: |
         Gets the imported shipments for the user.
       operationId: imported_shipments_get
@@ -816,48 +803,48 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: query
-          type: integer
-          format: int32
-          description: ID for the imported shipment that need to be considered for filter
+        - name: "id"
+          in: "query"
+          type: "integer"
+          format: "int32"
+          description: "ID for the imported shipment that need to be considered for filter"
           required: false
-        - name: order_id
-          in: query
-          type: string
-          description: Order ID for the imported shipment that need to be considered for filter
+        - name: "order_id"
+          in: "query"
+          type: "string"
+          description: "Order ID for the imported shipment that need to be considered for filter"
           required: false
-        - name: created_at_min
-          in: query
-          type: string
-          format: date-time
+        - name: "created_at_min"
+          in: "query"
+          type: "string"
+          format: "date-time"
           description: |
             From timestamp for the imported shipments that need to be considered for filter. Examples:
             * 2017-06-19T11:00:03.305+02:00
             * 2017-06-19 will be transformed into 2017-06-19T00:00:00.000+02:00
           required: false
-        - name: created_at_max
-          in: query
-          type: string
-          format: date-time
+        - name: "created_at_max"
+          in: "query"
+          type: "string"
+          format: "date-time"
           description: |
             To timestamp for the imported shipments that need to be considered for filter. Examples:
             * 2017-06-29T11:00:03.305+02:00
             * 2017-06-29 will be transformed into 2017-06-29T00:00:00.000+02:00
           required: false
-        - name: per_page
-          in: query
-          type: integer
-          format: int32
+        - name: "per_page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining how many entries returned per page. Default 20. Max 50.
           required: false
-        - name: page
-          in: query
-          type: integer
-          format: int32
+        - name: "page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining which page is the results are fetched from. Default 1.
       responses:
-        '200':
+        200:
           description: Successful.
           headers:
             X-Per-Page:
@@ -885,7 +872,7 @@ paths:
     post:
       tags:
         - imported_shipments
-      summary: Create a new Imported Shipment
+      summary: 'Create a new Imported Shipment'
       description: |
         Create a new imported shipment. The imported shipment can be used to generate shipment through our Web App later.
       operationId: imported_shipments_post
@@ -913,11 +900,11 @@ paths:
           $ref: '#/definitions/Response 422'
       security:
         - basicAuth: []
-  '/imported_shipments/{id}':
+  /imported_shipments/{id}:
     get:
       tags:
         - imported_shipments
-      summary: Get Imported Shipment with specific ID
+      summary: 'Get Imported Shipment with specific ID'
       description: |
         Gets the imported shipments for the user.
       operationId: imported_shipment_get
@@ -926,11 +913,11 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the imported shipment that need to be considered for filter
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the imported shipment that need to be considered for filter"
           required: true
       responses:
         '200':
@@ -946,7 +933,7 @@ paths:
     put:
       tags:
         - imported_shipments
-      summary: Update an existing Imported Shipment
+      summary: 'Update an existing Imported Shipment'
       description: |
         Updating an existing imported shipment. The imported shipment can be used to generate shipment through our Web App later.
       operationId: imported_shipment_put
@@ -955,11 +942,11 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the imported shipment that need to be updated
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the imported shipment that need to be updated"
           required: true
         - in: body
           name: body
@@ -983,7 +970,7 @@ paths:
     delete:
       tags:
         - imported_shipments
-      summary: Delete/archive an existing Imported Shipment
+      summary: 'Delete/archive an existing Imported Shipment'
       description: |
         The shipment will be marked as archived and will no longer be visible in our Web App.
       operationId: imported_shipment_delete
@@ -992,11 +979,11 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the imported shipment that need to be updated
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the imported shipment that need to be updated"
           required: true
       responses:
         '200':
@@ -1011,11 +998,14 @@ paths:
           $ref: '#/definitions/Response 422'
       security:
         - basicAuth: []
+  #endregion
+
+  #region Pickup Points
   /pickup_points:
     get:
       tags:
         - pickup_points
-      summary: Get available & nearest pickup points
+      summary: 'Get available & nearest pickup points'
       description: |
         Get the available & nearest pickup points based on input.
 
@@ -1026,74 +1016,74 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: carrier_code
-          in: query
-          type: string
+        - name: "carrier_code"
+          in: "query"
+          type: "string"
           description: |
             Carrier code that need to be considered for filter
 
             Available values: bring, dao, db_schenker_se, gls, pdk
           required: true
           enum:
-            - bring
-            - dao
-            - db_schenker_se
-            - dhl_parcel
-            - gls
-            - pdk
-            - gls_pl
-            - ups
+          - "bring"
+          - "dao"
+          - "db_schenker_se"
+          - "dhl_parcel"
+          - "gls"
+          - "pdk"
+          - "gls_pl"
+          - "ups"
           default: gls
-        - name: country_code
-          in: query
+        - name: "country_code"
+          in: "query"
           description: |
             Country code (ISO Alpha-2) that need to be considered for filter.
 
             Available countries: DK, NO, SE, FI, NL, DE, BE, LU. Default: DK
           required: true
-          type: string
-          default: DK
-        - name: zipcode
-          in: query
+          type: "string"
+          default: "DK"
+        - name: "zipcode"
+          in: "query"
           description: |
             ZIP code / Postal code
           required: true
-          type: string
-          default: '5000'
-        - name: city
-          in: query
+          type: "string"
+          default: "5000"
+        - name: "city"
+          in: "query"
           description: |
             Name of the city. It is recommended to include city with the request to increase the hit accuracy.
           required: false
-          type: string
-          default: '5000'
-        - name: address
-          in: query
+          type: "string"
+          default: "5000"
+        - name: "address"
+          in: "query"
           description: |
             Street address (contains street name and house number)
           required: false
-          type: string
-        - name: id
-          in: query
-          type: string
-          description: 'The ID of the droppoint at shipping agent. Once this field is used, zipcode is no longer mandatory.'
+          type: "string"
+        - name: "id"
+          in: "query"
+          type: "string"
+          description: The ID of the droppoint at shipping agent. Once this field is used, zipcode is no longer mandatory.
           required: false
-        - name: quantity
-          in: query
-          type: integer
-          format: int32
+        - name: "quantity"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: Defining how many pickup points are being returned. Default 10. Max 50.
           required: false
-        - name: collect_points
-          in: query
-          type: boolean
-          format: bool
+        - name: "collect_points"
+          in: "query"
+          type: "boolean"
+          format: "bool"
           description: Set as true to get collect points for products like GLS Click&Collect
           default: false
           required: false
-        - name: product_code
-          in: query
-          type: string
+        - name: "product_code"
+          in: "query"
+          type: "string"
           description: Used to i.e. determine whether to return postfiliale (default) or packstations for DHL Parcel.
           required: false
       responses:
@@ -1109,11 +1099,14 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
+  #endregion
+
+  #region Shipment Monitor
   /shipment_monitor_statuses:
     get:
       tags:
         - shipment_monitor
-      summary: Get shipment monitor statuses
+      summary: 'Get shipment monitor statuses'
       description: |
         Get shipment monitor statues for specific shipments. Limit: 100 shipment ID's per request.
       operationId: shipment_monitor_statuses_get
@@ -1122,15 +1115,15 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: ids
-          in: query
-          description: |
-            A list of shipment ID's that you want to fetch shipment monitor statuses for. Examples 10075,10076,10077
-          required: true
-          type: array
-          items:
-            type: string
-          collectionFormat: csv
+      - name: "ids"
+        in: "query"
+        description: |
+          A list of shipment ID's that you want to fetch shipment monitor statuses for. Examples 10075,10076,10077
+        required: true
+        type: "array"
+        items:
+          type: string
+        collectionFormat: csv
       responses:
         '200':
           description: Successful.
@@ -1160,25 +1153,25 @@ paths:
   /shipment_monitor_details:
     get:
       tags:
-        - shipment_monitor
-      summary: Get shipment monitor details
+      - shipment_monitor
+      summary: 'Get shipment monitor details'
       description: |
         Get shipment monitor details for specific shipments. Limit: 100 shipment ID's per request.
       operationId: shipment_monitor_details_get
       consumes:
-        - application/json
+      - application/json
       produces:
-        - application/json
+      - application/json
       parameters:
-        - name: ids
-          in: query
-          description: |
-            A list of shipment ID's that you want to fetch shipment monitor details for. Examples 10075,10076,10077
-          required: true
-          type: array
-          items:
-            type: string
-          collectionFormat: csv
+      - name: "ids"
+        in: "query"
+        description: |
+          A list of shipment ID's that you want to fetch shipment monitor details for. Examples 10075,10076,10077
+        required: true
+        type: "array"
+        items:
+          type: string
+        collectionFormat: csv
       responses:
         '200':
           description: Successful.
@@ -1191,12 +1184,15 @@ paths:
         '404':
           $ref: '#/definitions/Response 404'
       security:
-        - basicAuth: []
+      - basicAuth: []
+  #endregion
+
+  #region Printers
   /printers:
     get:
       tags:
         - print_client
-      summary: Get printers for the current account
+      summary: 'Get printers for the current account'
       description: |
         Get printers
       operationId: printers_get
@@ -1221,7 +1217,7 @@ paths:
     post:
       tags:
         - print_client
-      summary: Create a print job
+      summary: 'Create a print job'
       description: |
         Get printers
       operationId: print_jobs_post
@@ -1249,11 +1245,14 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
+  #endregion
+
+  #region Pick Lists
   /pick_lists:
     get:
       tags:
         - pick_lists
-      summary: Get pick lists with specified IDs
+      summary: 'Get pick lists with specified IDs'
       description: |
         Get pick lists for specific sales orders with specified IDs. Limit: 25 Sales Order ID's per request.
       operationId: pick_list_get
@@ -1262,24 +1261,24 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: ids
-          in: query
-          description: |
-            A list of sales order ID's that you want to fetch pick lists for. Examples 10075,10076,10077
-          required: true
-          type: array
-          items:
-            type: string
-          collectionFormat: csv
-        - name: output_format
-          in: query
+      - name: "ids"
+        in: "query"
+        description: |
+          A list of sales order ID's that you want to fetch pick lists for. Examples 10075,10076,10077
+        required: true
+        type: "array"
+        items:
           type: string
-          description: |
-            Format for the pick lists. Available: a4_pdf, 10x19_pdf
-          required: false
-          enum:
-            - a4_pdf
-            - 10x19_pdf
+        collectionFormat: csv
+      - name: "output_format"
+        in: "query"
+        type: "string"
+        description: |
+          Format for the pick lists. Available: a4_pdf, 10x19_pdf
+        required: false
+        enum:
+        - "a4_pdf"
+        - "10x19_pdf"
       responses:
         '200':
           description: Successful.
@@ -1306,11 +1305,74 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
+  #endregion
+
+  #region Packing Slips
+  /packing_slips:
+    get:
+      tags:
+        - packing_slips
+      summary: 'Get packing slips with specified Sales Order IDs'
+      description: |
+        Get packing slips for specific sales orders with specified IDs. Limit: 25 Sales Order ID's per request.
+      operationId: packing_slip_get
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - name: "ids"
+        in: "query"
+        description: |
+          A list of sales order ID's that you want to fetch packing slips for. Examples 10075,10076,10077
+        required: true
+        type: "array"
+        items:
+          type: string
+        collectionFormat: csv
+      - name: "output_format"
+        in: "query"
+        type: "string"
+        description: |
+          Format for the packing slips. Available: a4_pdf, 10x19_pdf
+        required: false
+        enum:
+        - "a4_pdf"
+        - "10x19_pdf"
+      responses:
+        '200':
+          description: Successful.
+          headers:
+            X-Per-Page:
+              type: integer
+              description: Pagination - Per Page.
+            X-Current-Page:
+              type: integer
+              description: Pagination - Current Page.
+            X-Total-Count:
+              type: integer
+              description: Pagination - Total Count.
+            X-Total-Pages:
+              type: integer
+              description: Pagination - Total Pages Count.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Packing Slip'
+        '401':
+          $ref: '#/definitions/Response 401'
+        '404':
+          $ref: '#/definitions/Response 404'
+      security:
+        - basicAuth: []
+  #endregion
+
+  #region Return Portals
   /return_portals:
     get:
       tags:
         - return_portals
-      summary: Get return portals
+      summary: 'Get return portals'
       description: |
         Get return portals for the user.
       operationId: return_portals_get
@@ -1319,28 +1381,28 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: query
-          type: integer
-          format: int32
-          description: ID for the return portal that needs to be acquired
+        - name: "id"
+          in: "query"
+          type: "integer"
+          format: "int32"
+          description: "ID for the return portal that needs to be acquired"
           required: false
-        - name: active
-          in: query
-          type: boolean
-          format: bool
-          description: Filters for whether or not the return portal is active
+        - name: "active"
+          in: "query"
+          type: "boolean"
+          format: "bool"
+          description: "Filters for whether or not the return portal is active"
           required: false
-        - name: per_page
-          in: query
-          type: integer
-          format: int32
+        - name: "per_page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining how many entries returned per page. Default 10. Max 25.
           required: false
-        - name: page
-          in: query
-          type: integer
-          format: int32
+        - name: "page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining which page is the results are fetched from. Default 1.
       responses:
         '200':
@@ -1366,11 +1428,11 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
-  '/return_portals/{id}':
+  /return_portals/{id}:
     get:
       tags:
         - return_portals
-      summary: Get Return Portal with specific ID
+      summary: 'Get Return Portal with specific ID'
       description: |
         Gets the return portal with the specified ID for the user.
       operationId: return_portal_get
@@ -1379,11 +1441,11 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the return portal that need to be considered for filter
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the return portal that need to be considered for filter"
           required: true
       responses:
         '200':
@@ -1396,11 +1458,14 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
-  '/return_portals/{id}/shipments':
+  #endregion
+
+  #region Return Portal Shipments
+  /return_portals/{id}/shipments:
     get:
       tags:
         - return_portals
-      summary: Get Shipments for Return Portal with specific ID
+      summary: 'Get Shipments for Return Portal with specific ID'
       description: |
         Gets shipments for the return portal with the specified ID.
       operationId: return_portals_shipments_get
@@ -1409,74 +1474,74 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the return portal that need to be considered for filter
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the return portal that need to be considered for filter"
           required: true
-        - name: order_id
-          in: query
-          type: string
-          description: Order ID for the shipments that need to be considered for filter
+        - name: "order_id"
+          in: "query"
+          type: "string"
+          description: "Order ID for the shipments that need to be considered for filter"
           required: false
-        - name: package_number
-          in: query
-          type: string
-          description: Package number for the shipments that need to be considered for filter
+        - name: "package_number"
+          in: "query"
+          type: "string"
+          description: "Package number for the shipments that need to be considered for filter"
           required: false
-        - name: carrier_code
-          in: query
-          type: string
+        - name: "carrier_code"
+          in: "query"
+          type: "string"
           description: |
             Carrier code that need to be considered for filter
 
             Examples: bring, dao, dfm, dhl_express, gls, pdk
           required: false
           enum:
-            - bring
-            - dao
-            - dfm
-            - dhl_express
-            - gls
-            - pdk
-            - xpressen
-        - name: receiver_country
-          in: query
+          - "bring"
+          - "dao"
+          - "dfm"
+          - "dhl_express"
+          - "gls"
+          - "pdk"
+          - "xpressen"
+        - name: "receiver_country"
+          in: "query"
           description: |
             Country code (ISO Alpha-2) that need to be considered for filter.
 
             Examples: DK, SE, DE, etc.
           required: false
-          type: string
-        - name: created_at_min
-          in: query
-          type: string
-          format: date-time
+          type: "string"
+        - name: "created_at_min"
+          in: "query"
+          type: "string"
+          format: "date-time"
           description: |
             From timestamp for the shipments that need to be considered for filter. Examples:
             * 2017-06-19T11:00:03.305+02:00
             * 2017-06-19 will be transformed into 2017-06-19T00:00:00.000+02:00
           required: false
-        - name: created_at_max
-          in: query
-          type: string
-          format: date-time
+        - name: "created_at_max"
+          in: "query"
+          type: "string"
+          format: "date-time"
           description: |
             To timestamp for the shipments that need to be considered for filter. Examples:
             * 2017-06-29T11:00:03.305+02:00
             * 2017-06-29 will be transformed into 2017-06-29T00:00:00.000+02:00
           required: false
-        - name: per_page
-          in: query
-          type: integer
-          format: int32
+        - name: "per_page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining how many entries returned per page. Default 20. Max 50.
           required: false
-        - name: page
-          in: query
-          type: integer
-          format: int32
+        - name: "page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining which page is the results are fetched from. Default 1.
       responses:
         '200':
@@ -1504,11 +1569,15 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
+
+  #endregion
+
+  #region Multiple Labels
   /labels:
     get:
       tags:
         - labels
-      summary: Get labels with specified IDs
+      summary: 'Get labels with specified IDs'
       description: |
         Get labels for specific shipments with specified IDs. Limit: 25 shipment ID's per request.
       operationId: labels_get
@@ -1517,26 +1586,26 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: ids
-          in: query
-          description: |
-            A list of shipment ID's that you want to fetch labels for. Examples 10075,10076,10077
-          required: true
-          type: array
-          items:
-            type: string
-          collectionFormat: csv
-        - name: label_format
-          in: query
+      - name: "ids"
+        in: "query"
+        description: |
+          A list of shipment ID's that you want to fetch labels for. Examples 10075,10076,10077
+        required: true
+        type: "array"
+        items:
           type: string
-          description: |
-            Format for the labels. Available: a4_pdf, 10x19_pdf, png, zpl
-          required: false
-          enum:
-            - a4_pdf
-            - 10x19_pdf
-            - png
-            - zpl
+        collectionFormat: csv
+      - name: "label_format"
+        in: "query"
+        type: "string"
+        description: |
+          Format for the labels. Available: a4_pdf, 10x19_pdf, png, zpl
+        required: false
+        enum:
+        - "a4_pdf"
+        - "10x19_pdf"
+        - "png"
+        - "zpl"
       responses:
         '200':
           description: Successful.
@@ -1563,11 +1632,14 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
+  #endregion
+
+  #region Quotes
   /quotes:
     post:
       tags:
         - quotes
-      summary: Get quote for a shipment
+      summary: 'Get quote for a shipment'
       description: |
         Quote for a shipment with specified sender (origin), receiver (destination), product and services
       operationId: quotes_post
@@ -1600,7 +1672,7 @@ paths:
     post:
       tags:
         - quotes
-      summary: Get available quotes for a shipment
+      summary: 'Get available quotes for a shipment'
       description: |
         Array of available quotes for a shipment with specified sender (origin), receiver (destination).
       operationId: quotes/list_post
@@ -1631,11 +1703,14 @@ paths:
           $ref: '#/definitions/Response 422'
       security:
         - basicAuth: []
+  #endregion
+
+  #region Carriers
   /carriers:
     get:
       tags:
         - carriers
-      summary: Get available carriers
+      summary: 'Get available carriers'
       description: |
         Gets available carriers for the current user.
       operationId: carriers_get
@@ -1644,12 +1719,12 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: country_code
-          in: query
-          type: string
-          description: Country to get carriers for.
+        - name: "country_code"
+          in: "query"
+          type: "string"
+          description: "Country to get carriers for."
           required: true
-          default: DK
+          default: "DK"
       responses:
         '200':
           description: Successful.
@@ -1663,11 +1738,14 @@ paths:
           $ref: '#/definitions/Response 422'
       security:
         - basicAuth: []
+  #endregion
+
+  #region Shipment Templates
   /shipment_templates:
     get:
       tags:
         - shipment_templates
-      summary: Get Shipment Templates
+      summary: 'Get Shipment Templates'
       description: |
         Gets the shipment templates for the user.
       operationId: shipment_templates_get
@@ -1676,41 +1754,41 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: query
-          type: integer
-          format: int32
-          description: ID for the shipment template that need to be considered for filter
+        - name: "id"
+          in: "query"
+          type: "integer"
+          format: "int32"
+          description: "ID for the shipment template that need to be considered for filter"
           required: false
-        - name: sender_country
-          in: query
+        - name: "sender_country"
+          in: "query"
           description: |
             Country code (ISO Alpha-2) that need to be considered for filter.
 
             Examples: DK, SE, DE, etc.
           required: false
-          type: string
-        - name: receiver_country
-          in: query
+          type: "string"
+        - name: "receiver_country"
+          in: "query"
           description: |
             Country code (ISO Alpha-2) that need to be considered for filter.
 
             Examples: DK, SE, DE, etc.
           required: false
-          type: string
-        - name: per_page
-          in: query
-          type: integer
-          format: int32
+          type: "string"
+        - name: "per_page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining how many entries returned per page. Default 20. Max 50.
           required: false
-        - name: page
-          in: query
-          type: integer
-          format: int32
+        - name: "page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining which page is the results are fetched from. Default 1.
       responses:
-        '200':
+        200:
           description: Successful.
           headers:
             X-Per-Page:
@@ -1735,11 +1813,11 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
-  '/shipment_templates/{id}':
+  /shipment_templates/{id}:
     get:
       tags:
         - shipment_templates
-      summary: Get Shipment Template with specific ID
+      summary: 'Get Shipment Template with specific ID'
       description: |
         Gets the shipment templates for the user.
       operationId: shipment_template_get
@@ -1748,11 +1826,11 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the shipment template that need to be considered for filter
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the shipment template that need to be considered for filter"
           required: true
       responses:
         '200':
@@ -1767,11 +1845,14 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
+  #endregion
+
+  #region Sales Orders
   /sales_orders:
     get:
       tags:
         - sales_orders
-      summary: Get sales orders
+      summary: 'Get sales orders'
       description: |
         Gets the sales orders for the user.
       operationId: sales_orders_get
@@ -1780,71 +1861,71 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: query
-          type: integer
-          format: int32
-          description: ID for the sales order that need to be considered for filter
+        - name: "id"
+          in: "query"
+          type: "integer"
+          format: "int32"
+          description: "ID for the sales order that need to be considered for filter"
           required: false
-        - name: order_id
-          in: query
-          type: string
-          description: Order ID for the sales order that need to be considered for filter
+        - name: "order_id"
+          in: "query"
+          type: "string"
+          description: "Order ID for the sales order that need to be considered for filter"
           required: false
-        - name: archived
-          in: query
+        - name: "archived"
+          in: "query"
           type: boolean
-          description: Filter for achived or not
+          description: "Filter for achived or not"
           required: false
-        - name: created_at_min
-          in: query
-          type: string
-          format: date-time
+        - name: "created_at_min"
+          in: "query"
+          type: "string"
+          format: "date-time"
           description: |
             From created-timestamp for the sales orders that need to be considered for filter. Examples:
             * 2018-06-19T11:00:03.305+02:00
             * 2018-06-19 will be transformed into 2017-06-19T00:00:00.000+02:00
           required: false
-        - name: created_at_max
-          in: query
-          type: string
-          format: date-time
+        - name: "created_at_max"
+          in: "query"
+          type: "string"
+          format: "date-time"
           description: |
             To created-timestamp for the sales orders that need to be considered for filter. Examples:
             * 2018-06-29T11:00:03.305+02:00
             * 2018-06-29 will be transformed into 2017-06-29T00:00:00.000+02:00
           required: false
-        - name: updated_at_min
-          in: query
-          type: string
-          format: date-time
+        - name: "updated_at_min"
+          in: "query"
+          type: "string"
+          format: "date-time"
           description: |
             From updated-timestamp for the sales orders that need to be considered for filter. Examples:
             * 2018-06-19T11:00:03.305+02:00
             * 2018-06-19 will be transformed into 2017-06-19T00:00:00.000+02:00
           required: false
-        - name: updated_at_max
-          in: query
-          type: string
-          format: date-time
+        - name: "updated_at_max"
+          in: "query"
+          type: "string"
+          format: "date-time"
           description: |
             To updated-timestamp for the sales orders that need to be considered for filter. Examples:
             * 2018-06-29T11:00:03.305+02:00
             * 2018-06-29 will be transformed into 2017-06-29T00:00:00.000+02:00
           required: false
-        - name: per_page
-          in: query
-          type: integer
-          format: int32
+        - name: "per_page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining how many entries returned per page. Default 10. Max 25.
           required: false
-        - name: page
-          in: query
-          type: integer
-          format: int32
+        - name: "page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining which page is the results are fetched from. Default 1.
       responses:
-        '200':
+        200:
           description: Successful.
           headers:
             X-Per-Page:
@@ -1872,7 +1953,7 @@ paths:
     post:
       tags:
         - sales_orders
-      summary: Create a new sales order
+      summary: 'Create a new sales order'
       description: |
         Create a new sales order. The sales order can be used to pack, handle, and send shipments through the Shipmondo App.
       operationId: sales_orders_post
@@ -1900,11 +1981,11 @@ paths:
           $ref: '#/definitions/Response 422'
       security:
         - basicAuth: []
-  '/sales_orders/{id}':
+  /sales_orders/{id}:
     get:
       tags:
         - sales_orders
-      summary: Get sales order with specific ID
+      summary: 'Get sales order with specific ID'
       description: |
         Gets the sales orders for the user.
       operationId: sales_order_get
@@ -1913,11 +1994,11 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the sales order that need to be considered for filter
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the sales order that need to be considered for filter"
           required: true
       responses:
         '200':
@@ -1930,11 +2011,11 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
-  '/sales_orders/{id}/pick_list':
+  /sales_orders/{id}/pick_list:
     get:
       tags:
         - sales_orders
-      summary: Get Pick list for Sales order with specific ID
+      summary: 'Get Pick list for Sales order with specific ID'
       description: |
         Gets Pick list for the sales order with specific ID. Pick list is delivered as Base64 encoded data.
       operationId: sales_order_pick_list
@@ -1943,39 +2024,78 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the sales order that need to be considered for filter
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the sales order that need to be considered for filter"
           required: true
-        - name: format
-          in: query
-          type: string
+        - name: "format"
+          in: "query"
+          type: "string"
           description: |
             Format for the pick list. Available: a4_pdf, 10x19_pdf
           required: false
           enum:
-            - a4_pdf
-            - 10x19_pdf
+          - "a4_pdf"
+          - "10x19_pdf"
       responses:
         '200':
           description: Successful.
           schema:
             type: array
             items:
-              $ref: '#/definitions/Pick List Data'
+              $ref: "#/definitions/Pick List Data"
         '401':
           $ref: '#/definitions/Response 401'
         '404':
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
-  '/sales_orders/{id}/create_shipment':
+  /sales_orders/{id}/packing_slips:
+    get:
+      tags:
+        - sales_orders
+      summary: 'Get Packing slips for Sales order with specific ID'
+      description: |
+        Gets Packing slips for the sales order with specific ID. Packing slips are delivered as Base64 encoded data.
+      operationId: sales_order_packing_slips
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the sales order that need to be considered for filter"
+          required: true
+        - name: "format"
+          in: "query"
+          type: "string"
+          description: |
+            Format for the pick list. Available: a4_pdf, 10x19_pdf
+          required: false
+          enum:
+          - "a4_pdf"
+          - "10x19_pdf"
+      responses:
+        '200':
+          description: Successful.
+          schema:
+            $ref: "#/definitions/Packing Slip"
+        '401':
+          $ref: '#/definitions/Response 401'
+        '404':
+          $ref: '#/definitions/Response 404'
+      security:
+        - basicAuth: []
+  /sales_orders/{id}/create_shipment:
     post:
       tags:
         - sales_orders
-      summary: Create shipment for sales order with specified ID
+      summary: 'Create shipment for sales order with specified ID'
       description: |
         Create shipment for sales order.
       operationId: sales_order_create_shipment
@@ -1984,11 +2104,11 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the sales order that need to be created shipment for
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the sales order that need to be created shipment for"
           required: true
       responses:
         '200':
@@ -2001,11 +2121,11 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
-  '/sales_orders/{id}/capture':
+  /sales_orders/{id}/capture:
     post:
       tags:
         - sales_orders
-      summary: Capture payment for sales order with specified ID
+      summary: 'Capture payment for sales order with specified ID'
       description: |
         Capture payment for sales order.
       operationId: sales_order_capture
@@ -2014,11 +2134,11 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the sales order that need to be captured
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the sales order that need to be captured"
           required: true
       responses:
         '200':
@@ -2031,11 +2151,11 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
-  '/sales_orders/{id}/order_note':
+  /sales_orders/{id}/order_note:
     put:
       tags:
         - sales_orders
-      summary: Update note for sales order with specified ID
+      summary: 'Update note for sales order with specified ID'
       description: |
         Update note for sales order.
       operationId: sales_order_update_note
@@ -2044,11 +2164,11 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the sales order that note should be updated for
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the sales order that note should be updated for"
           required: true
         - in: body
           name: body
@@ -2071,7 +2191,7 @@ paths:
     post:
       tags:
         - sales_orders
-      summary: Process sales order barcode
+      summary: 'Process sales order barcode'
       description: |
         Update note for sales order.
       operationId: sales_order_barcode
@@ -2097,11 +2217,14 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
+  #endregion
+
+  #region Payment Gateways
   /payment_gateways:
     get:
       tags:
         - payment_gateways
-      summary: Get payment gateways
+      summary: 'Get payment gateways'
       description: |
         Gets the payment gateways for the user.
       operationId: payment_gateways_get
@@ -2110,25 +2233,25 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: query
-          type: integer
-          format: int32
-          description: ID for the payment gateway that need to be considered for filter
+        - name: "id"
+          in: "query"
+          type: "integer"
+          format: "int32"
+          description: "ID for the payment gateway that need to be considered for filter"
           required: false
-        - name: per_page
-          in: query
-          type: integer
-          format: int32
+        - name: "per_page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining how many entries returned per page. Default 20. Max 50.
           required: false
-        - name: page
-          in: query
-          type: integer
-          format: int32
+        - name: "page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining which page is the results are fetched from. Default 1.
       responses:
-        '200':
+        200:
           description: Successful.
           headers:
             X-Per-Page:
@@ -2153,11 +2276,11 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
-  '/payment_gateways/{id}':
+  /payment_gateways/{id}:
     get:
       tags:
         - payment_gateways
-      summary: Get payment gateway with specific ID
+      summary: 'Get payment gateway with specific ID'
       description: |
         Gets the payment gateways for the user.
       operationId: payment_gateway_get
@@ -2166,11 +2289,11 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the payment gateway that need to be considered for filter
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the payment gateway that need to be considered for filter"
           required: true
       responses:
         '200':
@@ -2185,11 +2308,14 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
+  #endregion
+
+  #region Documents
   /documents/end_of_day:
     get:
       tags:
         - documents
-      summary: Get end of day list for a specific carrier
+      summary: 'Get end of day list for a specific carrier'
       description: |
         Gets end of day list for a specific carrier.
       operationId: end_of_day_get
@@ -2198,45 +2324,45 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: carrier_code
-          in: query
-          type: string
+        - name: "carrier_code"
+          in: "query"
+          type: "string"
           description: |
             Carrier code that end of day list should be generated for
 
             Examples: bring, dao, dfm, dhl_express, dsv, gls, pdk, xpressen, brink
           required: true
           enum:
-            - bring
-            - dao
-            - dfm
-            - dhl_express
-            - dsv
-            - gls
-            - pdk
-            - xpressen
-            - brink
-            - gls_pl
-        - name: from_time
-          in: query
-          type: string
-          format: date-time
+          - "bring"
+          - "dao"
+          - "dfm"
+          - "dhl_express"
+          - "dsv"
+          - "gls"
+          - "pdk"
+          - "xpressen"
+          - "brink"
+          - "gls_pl"
+        - name: "from_time"
+          in: "query"
+          type: "string"
+          format: "date-time"
           description: |
             From timestamp for the end of day document. Examples:
             * 2018-06-19T11:00:00.305+02:00
             * 2018-06-19 will be transformed into 2018-06-19T00:00:00.000+02:00
           required: true
-        - name: to_time
-          in: query
-          type: string
-          format: date-time
+        - name: "to_time"
+          in: "query"
+          type: "string"
+          format: "date-time"
           description: |
             To timestamp for the end of day document. Examples:
             * 2018-06-20T11:00:00.305+02:00
             * 2018-06-20 will be transformed into 2018-06-20T00:00:00.000+02:00
           required: true
       responses:
-        '200':
+        200:
           description: Successful.
           schema:
             $ref: '#/definitions/Document'
@@ -2250,7 +2376,7 @@ paths:
     get:
       tags:
         - documents
-      summary: Get waybill for i.e. PostNord varebrev
+      summary: 'Get waybill for i.e. PostNord varebrev'
       description: |
         Gets waybill for i.e. PostNord varebrev.
       operationId: waybill_get
@@ -2259,51 +2385,63 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: carrier_code
-          in: query
-          type: string
+        - name: "carrier_code"
+          in: "query"
+          type: "string"
           description: |
             Carrier code that need to be considered for filter
 
             Examples: pdk, deutsche_post, bring
           required: false
-          default: pdk
+          default: 'pdk'
           enum:
-            - pdk
-            - deutsche_post
-            - bring
-        - name: bag_quantity
-          in: query
-          type: integer
+            - "pdk"
+            - 'deutsche_post'
+            - 'bring'
+        - name: "bag_quantity"
+          in: "query"
+          type: "integer"
           required: false
           default: 0
-          description: 'Quantity of bags to be declared <br> <strong>Note:</strong> <ul> <li>Required for PostNord</li> <li>Required for Deutsche Post, but is only used if an open order is closed</li> <li>Ignored for Bring</li> </ul>'
-        - name: container_quantity
-          in: query
-          type: integer
+          description: "Quantity of bags to be declared <br>
+            <strong>Note:</strong>
+            <ul>
+              <li>Required for PostNord</li>
+              <li>Required for Deutsche Post, but is only used if an open order is closed</li>
+              <li>Ignored for Bring</li>
+             </ul>"
+        - name: "container_quantity"
+          in: "query"
+          type: "integer"
           required: false
           default: 0
-          description: 'Quantity of bags to be declared <br> <strong>Note:</strong> <ul> <li>Required for PostNord</li> <li>If used with Deutsche Post it is just added to bag_quantity</li> <li>Ignored for Bring</li> </ul>'
-        - name: from_time
-          in: query
-          type: string
-          format: date-time
+          description: "Quantity of bags to be declared <br>
+            <strong>Note:</strong>
+            <ul>
+              <li>Required for PostNord</li>
+              <li>If used with Deutsche Post it is just added to bag_quantity</li>
+              <li>Ignored for Bring</li>
+            </ul>"
+        - name: "from_time"
+          in: "query"
+          type: "string"
+          format: "date-time"
           description: |
             From timestamp for the waybill document. Examples:
             * 2018-06-19T11:00:00.305+02:00
             * 2018-06-19 will be transformed into 2018-06-19T00:00:00.000+02:00
           required: true
-        - name: to_time
-          in: query
-          type: string
-          format: date-time
+        - name: "to_time"
+          in: "query"
+          type: "string"
+          format: "date-time"
           description: |
             To timestamp for the waybill document. Examples:
             * 2018-06-20T11:00:00.305+02:00
             * 2018-06-20 will be transformed into 2018-06-20T00:00:00.000+02:00
           required: true
-        - name: product_id
-          in: query
+        - name: "product_id"
+          in: "query"
           type: integer
           description: |
             Determines the product of the waybill:
@@ -2311,7 +2449,7 @@ paths:
             * 2 = PostNord Tracked
             * 3 = PostNord Untracked
       responses:
-        '200':
+        200:
           description: Successful.
           schema:
             $ref: '#/definitions/Document'
@@ -2321,11 +2459,14 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
+  #endregion
+
+  #region Pickup Requests
   /pickup_requests:
     get:
       tags:
         - pickup_requests
-      summary: Get pickup requests
+      summary: 'Get pickup requests'
       description: |
         Gets the pickup requests for the user.
       operationId: pickup_requests_get
@@ -2334,37 +2475,38 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: query
-          type: integer
-          format: int32
-          description: ID for the pickup request that need to be considered for filter
+        - name: "id"
+          in: "query"
+          type: "integer"
+          format: "int32"
+          description: "ID for the pickup request that need to be considered for filter"
           required: false
-        - name: carrier_code
-          in: query
-          type: string
+        - name: "carrier_code"
+          in: "query"
+          type: "string"
           description: |
             Carrier code that need to be considered for filter
 
             Examples: ups, fed_ex, dhl_express
           required: false
           enum:
-            - fed_ex
-            - ups
-            - dhl_express
-        - name: per_page
-          in: query
-          type: integer
-          format: int32
+            - "fed_ex"
+            - "ups"
+            - "dhl_express"
+        - name: "per_page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining how many entries returned per page. Default 20. Max 50.
           required: false
-        - name: page
-          in: query
-          type: integer
-          format: int32
+        - name: "page"
+          in: "query"
+          type: "integer"
+          format: "int32"
           description: For pagination. Defining which page is the results are fetched from. Default 1.
       responses:
-        '200':
+        200:
+
           description: Successful.
           headers:
             X-Per-Page:
@@ -2390,7 +2532,7 @@ paths:
     post:
       tags:
         - pickup_requests
-      summary: Create a pickup requests and book it at the carrier
+      summary: 'Create a pickup requests and book it at the carrier'
       description: |
         Create a pickup requests and book it at the carrier
       operationId: pickup_requests_post
@@ -2401,7 +2543,10 @@ paths:
       parameters:
         - in: body
           name: body
-          description: Pickup Request object.<br> <strong>Note</strong>; is_residential is only for ups<br> <strong>is_residential</strong>; is the pickup address residential?<br>
+          description:
+            Pickup Request object.<br>
+            <strong>Note</strong>; is_residential is only for ups<br>
+            <strong>is_residential</strong>; is the pickup address residential?<br>
           required: true
           schema:
             $ref: '#/definitions/Create Pickup Request Request'
@@ -2418,11 +2563,11 @@ paths:
           $ref: '#/definitions/Response 422'
       security:
         - basicAuth: []
-  '/pickup_requests/{id}':
+  /pickup_requests/{id}:
     get:
       tags:
         - pickup_requests
-      summary: Get pickup request with specific ID
+      summary: 'Get pickup request with specific ID'
       description: |
         Gets the pickup request with specific ID for the user
       operationId: pickup_requests_show
@@ -2431,11 +2576,11 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
-          in: path
-          type: integer
-          format: int32
-          description: ID for the pickup request that need to be considered for filter
+        - name: "id"
+          in: "path"
+          type: "integer"
+          format: "int32"
+          description: "ID for the pickup request that need to be considered for filter"
           required: true
       responses:
         '200':
@@ -2448,13 +2593,8 @@ paths:
           $ref: '#/definitions/Response 404'
       security:
         - basicAuth: []
-  /test:
-    get:
-      summary: test
-      tags: []
-      responses: {}
-      operationId: get-test
-    parameters: []
+
+#region Security Definitions
 securityDefinitions:
   basicAuth:
     type: basic
@@ -2472,28 +2612,36 @@ securityDefinitions:
       Username (API User): d8fb61fe-0a4f-4e11-81f8-6efd3513bd43
 
       Password (API Key): 976ff6f2-3528-4f4f-9e7d-007e9a074037
+
+#endregion
+
 definitions:
+
+  #region Common API Response
   Response 401:
     description: Unauthorized.
     type: object
     properties:
       error:
         type: string
-        example: Invalid API User or API Key
+        example: "Invalid API User or API Key"
   Response 404:
-    description: Invalid or not found parameter(s)
+    description: "Invalid or not found parameter(s)"
     type: object
     properties:
       error:
         type: string
-        example: Invalid or not found parameter(s)
+        example: "Invalid or not found parameter(s)"
   Response 422:
-    description: Invalid or not found parameter(s)
+    description: "Invalid or not found parameter(s)"
     type: object
     properties:
       error:
         type: string
-        example: Invalid or not found parameter(s)
+        example: "Invalid or not found parameter(s)"
+  #endregion
+
+  #region Carrier
   Carrier:
     type: object
     properties:
@@ -2505,11 +2653,14 @@ definitions:
         example: gls
       name:
         type: string
-        example: GLS Denmark
+        example: "GLS Denmark"
   Carriers:
     type: array
     items:
-      $ref: '#/definitions/Carrier'
+      $ref: "#/definitions/Carrier"
+  #endregion
+
+  #region Country
   Country:
     type: object
     properties:
@@ -2518,94 +2669,103 @@ definitions:
         example: DK
       name:
         type: string
-        example: Denmark
+        example: "Denmark"
       customs_declaration_required:
         type: boolean
         example: false
+  #endregion
+
+  #region Shipping Product Service
   Shipping Product Service:
     type: object
     properties:
       code:
         type: string
-        example: EMAIL_NT
+        example: "EMAIL_NT"
       id:
         type: integer
         example: 21
       name:
         type: string
-        example: Email advisering
+        example: "Email advisering"
       required_fields:
         type: string
-        example: receiver_email
+        example: "receiver_email"
   Shipping Product Services:
     type: array
     items:
-      $ref: '#/definitions/Shipping Product Service'
+      $ref: "#/definitions/Shipping Product Service"
   Required Shipping Product Service:
     type: object
     properties:
       code:
         type: string
-        example: EMAIL_NT
+        example: "EMAIL_NT"
       id:
         type: integer
         example: 21
       name:
         type: string
-        example: Email advisering
+        example: "Email advisering"
       required_fields:
         type: string
-        example: receiver_email
+        example: "receiver_email"
       note:
         type: string
-        example: Email notification is required
+        example: "Email notification is required"
   Required Shipping Product Services:
     type: array
     items:
-      $ref: '#/definitions/Required Shipping Product Service'
+      $ref: "#/definitions/Required Shipping Product Service"
+  #endregion
+
+  #region Weight Inteval
   Weight Interval:
-    description: Public weight intervals available to use. This is not applicable for own agreement or carriers that require full dimensions on parcels.
+    description: "Public weight intervals available to use. This is not applicable for own agreement or carriers that require full dimensions on parcels."
     type: object
     properties:
       from_weight:
         type: integer
         example: 0
-        description: In gram
+        description: "In gram"
       to_weight:
         type: integer
         example: 1000
-        description: In gram
+        description: "In gram"
       description:
         type: string
-        example: 0-1kg
+        example: "0-1kg"
   Weight Intervals:
     type: array
     items:
-      $ref: '#/definitions/Weight Interval'
+      $ref: "#/definitions/Weight Interval"
+  #endregion
+
+  #region Shipping Product
   Shipping Product:
     type: object
     properties:
       code:
         type: string
-        example: GLSDK_SD
-        description: GLSDK_SD equals GLS (DK) Shop Delivery
+        example: "GLSDK_SD"
+        description: "GLSDK_SD equals GLS (DK) Shop Delivery"
       id:
         type: integer
         example: 19
       name:
         type: string
-        example: Til Pakkeshop
+        example: "Til Pakkeshop"
       required_fields:
         type: string
-        example: service_point_id
+        example: "service_point_id"
       available:
         type: boolean
         example: true
-        description: Whether the product is available for the current user to book.
+        description: "Whether the product is available for the current user to book."
       own_agreement_available:
         type: boolean
         example: true
-        description: If own agreement is available for this product.
+        description: "If own agreement is available for this product."
       customs_declaration_required:
         type: boolean
         example: true
@@ -2617,19 +2777,19 @@ definitions:
         example: true
       expected_transit_time:
         type: string
-        example: 1-2 days
+        example: "1-2 days"
       sender_country_code:
         type: string
-        example: DK
+        example: "DK"
       receiver_country_code:
         type: string
-        example: DK
+        example: "DK"
       required_parcel_fields:
         type: string
-        example: 'quantity,weight'
+        example: "quantity,weight"
       optional_parcel_fields:
         type: string
-        example: 'height,length,width'
+        example: "height,length,width"
       carrier:
         $ref: '#/definitions/Carrier'
       destination_country:
@@ -2640,10 +2800,14 @@ definitions:
         $ref: '#/definitions/Required Shipping Product Services'
       weight_intervals:
         $ref: '#/definitions/Weight Intervals'
+
   Shipping Products:
     type: array
     items:
       $ref: '#/definitions/Shipping Product'
+  #endregion
+
+  #region Package Type
   Package Type:
     type: object
     properties:
@@ -2652,14 +2816,18 @@ definitions:
         example: 19
       code:
         type: string
-        example: PL1
+        example: "PL1"
       description:
         type: string
-        example: PL1
+        example: "PL1"
+
   Package Types:
     type: array
     items:
       $ref: '#/definitions/Package Type'
+  #endregion
+
+  #region ImportedShipment
   Imported Shipment:
     type: object
     properties:
@@ -2674,23 +2842,23 @@ definitions:
         example: true
       order_id:
         type: string
-        example: '1000002345'
+        example: "1000002345"
       reference:
         type: string
-        example: Webshop 5678
+        example: "Webshop 5678"
       source:
         type: string
-        example: API
+        example: "API"
       carrier_code:
         type: string
-        example: gls
+        example: "gls"
       product_code:
         type: string
-        example: GLSDK_SD
-        description: GLSDK_SD equals GLS (DK) Shop Delivery
+        example: "GLSDK_SD"
+        description: "GLSDK_SD equals GLS (DK) Shop Delivery"
       service_codes:
         type: string
-        example: 'EMAIL_NT,SMS_NT'
+        example: "EMAIL_NT,SMS_NT"
       archived:
         type: boolean
         example: false
@@ -2700,26 +2868,26 @@ definitions:
       created_at:
         type: string
         format: date-time
-        example: '2017-06-16T08:25:44.557+02:00'
+        example: "2017-06-16T08:25:44.557+02:00"
       updated_at:
         type: string
         format: date-time
-        example: '2017-06-16T08:25:44.557+02:00'
+        example: "2017-06-16T08:25:44.557+02:00"
       sender:
-        $ref: '#/definitions/Sender'
+        $ref: "#/definitions/Sender"
       receiver:
-        $ref: '#/definitions/Receiver'
+        $ref: "#/definitions/Receiver"
       service_point:
-        $ref: '#/definitions/Service Point Simple'
+        $ref: "#/definitions/Service Point Simple"
   Create Imported Shipment Request:
     type: object
     properties:
       sender:
-        $ref: '#/definitions/Sender'
+        $ref: "#/definitions/Sender"
       receiver:
-        $ref: '#/definitions/Receiver'
+        $ref: "#/definitions/Receiver"
       service_point:
-        $ref: '#/definitions/Service Point Simple'
+        $ref: "#/definitions/Service Point Simple"
       sms_notification:
         type: boolean
         example: true
@@ -2728,27 +2896,30 @@ definitions:
         example: true
       order_id:
         type: string
-        example: '1000002345'
+        example: "1000002345"
       reference:
         type: string
-        example: Webshop 5678
+        example: "Webshop 5678"
       source:
         type: string
-        example: API
+        example: "API"
       carrier_code:
         type: string
         example: null
-        description: Can be blank
+        description: "Can be blank"
       product_code:
         type: string
-        example: GLSDK_SD
-        description: Can be blank
+        example: "GLSDK_SD"
+        description: "Can be blank"
       service_codes:
         type: string
-        example: 'EMAIL_NT,SMS_NT'
+        example: "EMAIL_NT,SMS_NT"
       shipment_template_id:
         type: string
-        example: '710'
+        example: "710"
+  #endregion
+
+  #region Shipment
   Sender:
     type: object
     required:
@@ -2757,112 +2928,111 @@ definitions:
       - zipcode
       - city
       - country_code
-    description: Required
+    description: "Required"
     properties:
       name:
         type: string
-        example: Min Virksomhed ApS
+        example: "Min Virksomhed ApS"
       attention:
         type: string
-        example: Lene Hansen
+        example: "Lene Hansen"
       address1:
         type: string
-        example: Strandvejen 6B
+        example: "Strandvejen 6B"
       address2:
         type: string
         example: null
       zipcode:
         type: string
-        example: '5240'
+        example: "5240"
       city:
         type: string
-        example: Odense NØ
+        example: "Odense NØ"
       country_code:
         type: string
-        example: DK
+        example: "DK"
       email:
         type: string
-        example: info@minvirksomhed.dk
+        example: "info@minvirksomhed.dk"
       mobile:
         type: string
-        example: '70400407'
+        example: "70400407"
       telephone:
         type: string
-        example: '70400407'
+        example: "70400407"
   Receiver:
     type: object
-    description: Required
-    properties:
-      name:
-        type: string
-        example: Lene Hansen
-        description: Max length 35.
-      attention:
-        type: string
-        example: null
-      address1:
-        type: string
-        example: Skibhusvej 52
-      address2:
-        type: string
-        example: null
-      zipcode:
-        type: string
-        example: '5000'
-      city:
-        type: string
-        example: Odense C
-      country_code:
-        type: string
-        example: DK
-      email:
-        type: string
-        example: lene@email.dk
-      mobile:
-        type: string
-        example: '12345678'
-      telephone:
-        type: string
-        example: '12345678'
-      instruction:
-        type: string
-        example: null
     required:
       - name
       - address1
       - zipcode
       - city
       - country_code
+    description: "Required"
+    properties:
+      name:
+        type: string
+        example: "Lene Hansen"
+      attention:
+        type: string
+        example: null
+      address1:
+        type: string
+        example: "Skibhusvej 52"
+      address2:
+        type: string
+        example: null
+      zipcode:
+        type: string
+        example: "5000"
+      city:
+        type: string
+        example: "Odense C"
+      country_code:
+        type: string
+        example: "DK"
+      email:
+        type: string
+        example: "lene@email.dk"
+      mobile:
+        type: string
+        example: "12345678"
+      telephone:
+        type: string
+        example: "12345678"
+      instruction:
+        type: string
+        example: null
   Pick Up:
     type: object
     properties:
       name:
         type: string
-        example: Min Virksomhed A/S
+        example: "Min Virksomhed A/S"
       address1:
         type: string
-        example: Strandvejen 6B
+        example: "Strandvejen 6B"
       address2:
         type: string
-        example: Port 26
+        example: "Port 26"
       country_code:
         type: string
-        example: DK
+        example: "DK"
       zipcode:
         type: string
-        example: '5240'
+        example: "5240"
       city:
         type: string
-        example: Odense NØ
+        example: "Odense NØ"
       attention:
         type: string
-        example: Lager
+        example: "Lager"
       telephone:
         type: string
-        example: '80808080'
+        example: "80808080"
       instruction:
         type: string
-        example: Henvend ved indgang port 21
+        example: "Henvend ved indgang port 21"
   Goods Line:
     type: object
     required:
@@ -2878,35 +3048,35 @@ definitions:
         example: 2
       country:
         type: string
-        example: CN
-        description: Country of origin
+        example: "CN"
+        description: "Country of origin"
       content:
         type: string
-        example: Textile shirt
-        description: Description of the content
+        example: "Textile shirt"
+        description: "Description of the content"
       commodity_code:
         type: string
-        example: '8471000000'
-        description: Classification numbers for goods. For more visit vita.skat.dk
+        example: "8471000000"
+        description: "Classification numbers for goods. For more visit vita.skat.dk"
       unit_value:
         type: number
         example: 50.75
-        description: Unit value in declared currency
+        description: "Unit value in declared currency"
       unit_weight:
         type: integer
         example: 100
-        description: Unit weight in gram
+        description: "Unit weight in gram"
   Simple Customs:
     type: object
     properties:
       currency_code:
         type: string
-        example: DKK
-        description: Declared currency code
+        example: "DKK"
+        description: "Declared currency code"
       goods:
         type: array
         items:
-          $ref: '#/definitions/Goods Line'
+          $ref: "#/definitions/Goods Line"
   Service Point In Shipment Request:
     type: object
     required:
@@ -2914,8 +3084,8 @@ definitions:
     properties:
       id:
         type: string
-        example: '96271'
-        description: Identification for the service point from the carrier
+        example: "96271"
+        description: "Identification for the service point from the carrier"
   Parcel Simple:
     type: object
     required:
@@ -2924,41 +3094,41 @@ definitions:
       weight:
         type: integer
         example: 1000
-        description: Weight in gram
+        description: "Weight in gram"
   Parcel Advanced:
     type: object
     properties:
       weight:
         type: integer
         example: 1000
-        description: Weight in gram
+        description: "Weight in gram"
       length:
         type: integer
         example: 20
-        description: Length in cm
+        description: "Length in cm"
       width:
         type: integer
         example: 10
-        description: Width in cm
+        description: "Width in cm"
       height:
         type: integer
         example: 6
-        description: Height in cm
+        description: "Height in cm"
       volume:
         type: number
         example: 0.012
-        description: Volume in cubic metre
+        description: "Volume in cubic metre"
       running_metre:
         type: number
         example: 1.25
-        description: Running metre in metre
+        description: "Running metre in metre"
       description:
         type: string
-        example: Bike accessories
+        example: "Bike accessories"
       packaging:
         type: string
-        example: PL1
-        description: 'Packaging type for the parcel, if required, must match value required by the carrier.'
+        example: "PL1"
+        description: "Packaging type for the parcel, if required, must match value required by the carrier."
   Create Shipment Request Simple:
     type: object
     required:
@@ -2972,51 +3142,51 @@ definitions:
       test_mode:
         type: boolean
         example: true
-        description: 'For testing purpose. Shipment and labels generated are dummy and cannot be used. To create real shipments, remove this element or set it to be false'
+        description: "For testing purpose. Shipment and labels generated are dummy and cannot be used. To create real shipments, remove this element or set it to be false"
       own_agreement:
         type: boolean
         example: false
       label_format:
         type: string
         example: null
-        description: 'If label_format is specified, the shipping labels will be included in the response. Available formats: a4_pdf, 10x19_pdf, png, zpl'
+        description: "If label_format is specified, the shipping labels will be included in the response. Available formats: a4_pdf, 10x19_pdf, png, zpl"
       product_code:
         type: string
-        example: GLSDK_SD
-        description: GLSDK_SD equals GLS (DK) Shop Delivery
+        example: "GLSDK_SD"
+        description: "GLSDK_SD equals GLS (DK) Shop Delivery"
       service_codes:
         type: string
-        example: 'EMAIL_NT,SMS_NT'
+        example: "EMAIL_NT,SMS_NT"
       automatic_select_service_point:
         type: boolean
         example: true
-        description: 'When a delivery method requires specified service point, you can use this to have the system to pick the closest one based on receiver''s address.'
+        description: "When a delivery method requires specified service point, you can use this to have the system to pick the closest one based on receiver's address."
       sender:
-        $ref: '#/definitions/Sender'
+        $ref: "#/definitions/Sender"
       receiver:
-        $ref: '#/definitions/Receiver'
+        $ref: "#/definitions/Receiver"
       parcels:
         type: array
         items:
-          $ref: '#/definitions/Parcel Simple'
+          $ref: "#/definitions/Parcel Simple"
       print:
         type: boolean
         example: false
-        description: 'For using with the print client. Shipment labels can be sent out to the print queue automatically. Possible to specify which host name, printer name and label format in print_at element.'
+        description: "For using with the print client. Shipment labels can be sent out to the print queue automatically. Possible to specify which host name, printer name and label format in print_at element."
       print_at:
-        $ref: '#/definitions/Print At'
+        $ref: "#/definitions/Print At"
       send_label:
-        $ref: '#/definitions/Send Label'
+        $ref: "#/definitions/Send Label"
       replace_http_status_code:
         type: boolean
         example: false
-        description: 'If replace_http_status_code is set to true, request will have HTTP Status 200, the real HTTP Status will be included in the response header as X-HTTP-Status-Code. This is for preventing Run Time Error in some frameworks and make it possible to read the error messages.'
+        description: "If replace_http_status_code is set to true, request will have HTTP Status 200, the real HTTP Status will be included in the response header as X-HTTP-Status-Code. This is for preventing Run Time Error in some frameworks and make it possible to read the error messages."
       reference:
         type: string
-        example: Order 10001
+        example: "Order 10001"
         description: Reference can be printed on the label and transferred to e.g. carriers.
       pallet_exchange:
-        $ref: '#/definitions/Pallet Exchange'
+        $ref: "#/definitions/Pallet Exchange"
   Create Shipment Request Simple With Service Point:
     type: object
     required:
@@ -3030,114 +3200,114 @@ definitions:
       test_mode:
         type: boolean
         example: true
-        description: 'For testing purpose. Shipment and labels generated are dummy and cannot be used. To create real shipments, remove this element or set it to be false'
+        description: "For testing purpose. Shipment and labels generated are dummy and cannot be used. To create real shipments, remove this element or set it to be false"
       own_agreement:
         type: boolean
         example: false
       label_format:
         type: string
         example: null
-        description: 'If label_format is specified, the shipping labels will be included in the response. Available formats: a4_pdf, 10x19_pdf, png, zpl'
+        description: "If label_format is specified, the shipping labels will be included in the response. Available formats: a4_pdf, 10x19_pdf, png, zpl"
       product_code:
         type: string
-        example: GLSDK_SD
-        description: GLSDK_SD equals GLS (DK) Shop Delivery
+        example: "GLSDK_SD"
+        description: "GLSDK_SD equals GLS (DK) Shop Delivery"
       service_codes:
         type: string
-        example: 'EMAIL_NT,SMS_NT'
+        example: "EMAIL_NT,SMS_NT"
       sender:
-        $ref: '#/definitions/Sender'
+        $ref: "#/definitions/Sender"
       receiver:
-        $ref: '#/definitions/Receiver'
+        $ref: "#/definitions/Receiver"
       service_point:
         type: object
         properties:
           id:
             type: string
-            example: '95558'
-            description: The ID of the service point.
+            example: "95558"
+            description: "The ID of the service point."
       parcels:
         type: array
         items:
-          $ref: '#/definitions/Parcel Simple'
+          $ref: "#/definitions/Parcel Simple"
   Pallet Exchange:
     type: object
     properties:
       pallets1:
         type: integer
         example: 1
-        description: The number of 1/1 pallets to exchange
+        description: "The number of 1/1 pallets to exchange"
       pallets2:
         type: integer
         example: 0
-        description: The number of 1/2 pallets to exchange
+        description: "The number of 1/2 pallets to exchange"
       pallets4:
         type: integer
         example: 0
-        description: The number of 1/4 pallets to exchange
+        description: "The number of 1/4 pallets to exchange"
   Print At:
     type: object
     properties:
       host_name:
         type: string
-        example: WAREHOUSE-PC
-        description: Name of the PC / host where the print client is installed.
+        example: "WAREHOUSE-PC"
+        description: "Name of the PC / host where the print client is installed."
       printer_name:
         type: string
-        example: Zebra Zdesigner GK420D
-        description: Name of the printer that is registered within the print client.
+        example: "Zebra Zdesigner GK420D"
+        description: "Name of the printer that is registered within the print client."
       label_format:
         type: string
-        example: zpl
-        description: 'The label format that the printer can accept. If Zebra GK420D printer then use zpl. Available: a4_pdf, 10x19_pdf, png, zpl'
+        example: "zpl"
+        description: "The label format that the printer can accept. If Zebra GK420D printer then use zpl. Available: a4_pdf, 10x19_pdf, png, zpl"
   Send Label:
     type: object
     properties:
       name:
         type: string
-        example: Jim
-        description: Name of the recipient of the label (optional)
+        example: "Jim"
+        description: "Name of the recipient of the label (optional)"
       email:
         type: string
-        example: jim@minvirksomhed.dk
-        description: Email address of the recipient of the label
+        example: "jim@minvirksomhed.dk"
+        description: "Email address of the recipient of the label"
       label_format:
         type: string
-        example: a4_pdf
-        description: 'The label format that should be attached to the email. Available: a4_pdf, 10x19_pdf'
+        example: "a4_pdf"
+        description: "The label format that should be attached to the email. Available: a4_pdf, 10x19_pdf"
   Create Shipment Advanced:
     type: object
     properties:
       test_mode:
         type: boolean
         example: true
-        description: 'For testing purpose. Shipment and labels generated are dummy and cannot be used. To create real shipments, remove this element or set it to be false'
+        description: "For testing purpose. Shipment and labels generated are dummy and cannot be used. To create real shipments, remove this element or set it to be false"
       own_agreement:
         type: boolean
         example: false
       product_code:
         type: string
-        example: DHLE_EW
-        description: DHLE_EW equals DHL Express Express Worldwide
+        example: "DHLE_EW"
+        description: "DHLE_EW equals DHL Express Express Worldwide"
       service_codes:
         type: string
-        example: 'EMAIL_NT,SMS_NT'
+        example: "EMAIL_NT,SMS_NT"
       reference:
         type: string
-        example: Webshop 5678
+        example: "Webshop 5678"
       order_id:
         type: string
-        example: '1000002345'
+        example: "1000002345"
       sender:
-        $ref: '#/definitions/Sender'
+        $ref: "#/definitions/Sender"
       receiver:
-        $ref: '#/definitions/Receiver'
+        $ref: "#/definitions/Receiver"
       pick_up:
-        $ref: '#/definitions/Pick Up'
+        $ref: "#/definitions/Pick Up"
       parcels:
         type: array
         items:
-          $ref: '#/definitions/Parcel Advanced'
+          $ref: "#/definitions/Parcel Advanced"
   Shipment:
     type: object
     properties:
@@ -3147,107 +3317,157 @@ definitions:
       created_at:
         type: string
         format: date-time
-        example: '2017-06-16T08:25:44.557+02:00'
+        example: "2017-06-16T08:25:44.557+02:00"
       updated_at:
         type: string
         format: date-time
-        example: '2017-06-16T08:25:44.557+02:00'
+        example: "2017-06-16T08:25:44.557+02:00"
       carrier_code:
         type: string
-        example: gls
+        example: "gls"
       description:
         type: string
-        example: 'Til Pakkeshop 5,0 kg'
+        example: "Til Pakkeshop 5,0 kg"
       product_id:
         type: integer
         example: 64
       services:
         type: string
-        example: '23, 24'
+        example: "23, 24"
       product_code:
         type: string
-        example: GLSDK_SD
+        example: "GLSDK_SD"
       service_codes:
         type: string
-        example: 'EMAIL_NT,SMS_NT'
+        example: "EMAIL_NT,SMS_NT"
       price:
         type: number
-        example: '42.5'
+        example: "42.5"
       reference:
         type: string
-        example: Webshop 5678
+        example: "Webshop 5678"
       order_id:
         type: string
-        example: '1000002345'
+        example: "1000002345"
       pkg_no:
         type: string
-        example: '6064518784'
+        example: "6064518784"
       receiver:
-        $ref: '#/definitions/Receiver'
+        $ref: "#/definitions/Receiver"
       sender:
-        $ref: '#/definitions/Sender'
+        $ref: "#/definitions/Sender"
       service_point:
-        $ref: '#/definitions/Service Point Simple'
+        $ref: "#/definitions/Service Point Simple"
       pick_up:
         type: object
       paperless_trade:
         type: boolean
         example: false
-        description: 'If the shipment is created with paperless trade, then not necessary to print out physical proforma invoice.'
+        description: "If the shipment is created with paperless trade, then not necessary to print out physical proforma invoice."
       labelless_code:
         type: string
-        example: 123-4567-890
-        description: 'If labelless is supported on the certain shipment by the carrier, then this element will be available with the code that can be written on the parcel.'
+        example: "123-4567-890"
+        description: "If labelless is supported on the certain shipment by the carrier, then this element will be available with the code that can be written on the parcel."
+
   Shipment Cancelled:
     type: object
     properties:
       cancelled_at_carrier:
         type: boolean
         example: true
+  #endregion
+
+  #region Packing Slip
+  Packing Slip:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: "27000"
+        description: "Id for sales order"
+      packing_slips:
+        type: array
+        items: 
+          $ref: "#/definitions/Packing Slip Data"
+
+  #endregion
+
+  #region Packing Slip Data
+  Packing Slip Data:
+    type: object
+    properties:
+      order_fulfillment_id:
+        type: integer
+        example: "833"
+        description: "The id of the fulfillment"
+      base64:
+        type: string
+        example: "JVBERi0xLjMKJf//////AAAAAA..."
+        description: "Data encoded in BASE64 format"
+      file_format:
+        type: string
+        example: "pdf"
+        description: "File format for the returned data (pdf)"
+  #endregion
+
+  #region Pick List
   Pick List:
     type: object
     properties:
       id:
         type: integer
-        example: '27000'
-        description: Id for sales order
+        example: "27000"
+        description: "Id for sales order"
       pick_list:
         type: array
-        items:
-          $ref: '#/definitions/Pick List Data'
+        items: 
+          $ref: "#/definitions/Pick List Data"
+
+  #endregion
+
+  #region Pick List Data
   Pick List Data:
     type: object
     properties:
       base64:
         type: string
-        example: JVBERi0xLjMKJf//////AAAAAA...
-        description: Data encoded in BASE64 format
+        example: "JVBERi0xLjMKJf//////AAAAAA..."
+        description: "Data encoded in BASE64 format"
       file_format:
         type: string
-        example: pdf
-        description: File format for the returned data (pdf)
+        example: "pdf"
+        description: "File format for the returned data (pdf)"
+  #endregion
+
+  #region Label
   Label:
     type: object
     properties:
-      base64:
+      base64: 
         type: string
-        example: JVBERi0xLjMKJf//////AAAAAA...
-        description: Data encoded in BASE64 format
+        example: "JVBERi0xLjMKJf//////AAAAAA..."
+        description: "Data encoded in BASE64 format"
       file_format:
         type: string
-        example: pdf
-        description: 'File format for the returned data (pdf, png or zpl)'
+        example: "pdf"
+        description: "File format for the returned data (pdf, png or zpl)"
+  #endregion
+
+  #region Proforma Invoice
   Proforma Invoice:
     type: object
     properties:
       base64:
         type: string
-        example: JVBERi0xLjMKJf//////AAAAAA...
-        description: Data encoded in BASE64 format
+        example: "JVBERi0xLjMKJf//////AAAAAA..."
+        description: "Data encoded in BASE64 format"
       file_format:
         type: string
-        example: pdf
-        description: File format for the returned data (pdf)
+        example: "pdf"
+        description: "File format for the returned data (pdf)"
+  #endregion
+
+  #region Service Points
   Service Point Simple:
     type: object
     required:
@@ -3255,49 +3475,49 @@ definitions:
     properties:
       id:
         type: string
-        example: '95558'
+        example: "95558"
       name:
         type: string
-        example: Påskeløkkens Købmand
+        example: "Påskeløkkens Købmand"
       address1:
         type: string
-        example: Paaskeløkkevej 11
+        example: "Paaskeløkkevej 11"
       address2:
         type: string
         example: null
       zipcode:
         type: string
-        example: '5000'
+        example: "5000"
       city:
         type: string
-        example: Odense C
+        example: "Odense C"
       country_code:
         type: string
-        example: DK
+        example: "DK"
   Service Point:
     type: object
     properties:
       id:
         type: string
-        example: '95558'
+        example: "95558"
       name:
         type: string
-        example: Påskeløkkens Købmand
+        example: "Påskeløkkens Købmand"
       address:
         type: string
-        example: Paaskeløkkevej 11
+        example: "Paaskeløkkevej 11"
       address2:
         type: string
         example: null
       zipcode:
         type: string
-        example: '5000'
+        example: "5000"
       city:
         type: string
-        example: Odense C
+        example: "Odense C"
       country:
         type: string
-        example: DK
+        example: "DK"
       distance:
         type: integer
         example: null
@@ -3309,12 +3529,12 @@ definitions:
         example: 55.4086
       carrier_code:
         type: string
-        example: gls
+        example:  "gls"
       opening_hours:
         type: array
         items:
           type: string
-          example: 'Man: 07:30 - 18:00'
+          example: "Man: 07:30 - 18:00"
       in_delivery:
         type: boolean
         example: true
@@ -3324,7 +3544,10 @@ definitions:
   Service Points:
     type: array
     items:
-      $ref: '#/definitions/Service Point'
+      $ref: "#/definitions/Service Point"
+  #endregion
+
+  #region Payment Requests
   Payment Request:
     type: object
     properties:
@@ -3333,36 +3556,39 @@ definitions:
         example: 11460
       reference:
         type: string
-        example: Efterkrav for pakkelabel 16733
+        example: "Efterkrav for pakkelabel 16733"
       line_type:
         type: string
-        example: Excess Weight
+        example: "Excess Weight"
       amount:
         type: number
         example: 22.5
       created_at:
         type: string
         format: date-time
-        example: '2017-06-16T08:25:44.557+02:00'
+        example: "2017-06-16T08:25:44.557+02:00"
       updated_at:
         type: string
         format: date-time
-        example: '2017-06-16T08:25:44.557+02:00'
+        example: "2017-06-16T08:25:44.557+02:00"
+  #endregion
+
+  #region Printers
   Printer:
     type: object
     properties:
       name:
         type: string
-        example: Warehouse Printer 02
+        example: "Warehouse Printer 02"
       hostname:
         type: string
-        example: WAREHOUSE-PC-01
+        example: "WAREHOUSE-PC-01"
       printer:
         type: string
-        example: GK420D
+        example: "GK420D"
       label_format:
         type: string
-        example: zpl
+        example: "zpl"
       default_printer:
         type: boolean
         example: true
@@ -3377,16 +3603,20 @@ definitions:
         example: 11460
       document_type:
         type: string
-        example: shipment
+        example: "shipment"
       host_name:
         type: string
-        example: WAREHOUSE-PC-01
+        example: "WAREHOUSE-PC-01"
       printer_name:
         type: string
-        example: GK420D
+        example: "GK420D"
       label_format:
         type: string
-        example: zpl
+        example: "zpl"
+  #endregion
+
+  #region Shipment Monitor Statuses
+
   Shipment Monitor Status:
     type: object
     properties:
@@ -3395,44 +3625,49 @@ definitions:
         example: 11460
       current_state:
         type: string
-        example: PROGRESSING
+        example: "PROGRESSING"
       current_status:
         type: string
-        example: EN_ROUTE
+        example: "EN_ROUTE"
       current_status_text:
         type: string
-        example: Forsendelsen er ankommet til distributionscenter
+        example: "Forsendelsen er ankommet til distributionscenter"
       current_status_registered_at:
         type: string
         format: date-time
-        example: '2017-06-16T08:25:44.557+02:00'
+        example: "2017-06-16T08:25:44.557+02:00"
       location:
         type: string
-        example: Taulov Pakkecenter
+        example: "Taulov Pakkecenter"
       city:
         type: string
-        example: Taulov
+        example: "Taulov"
       country_code:
         type: string
-        example: DK
+        example: "DK"
       carrier_code:
         type: string
-        example: gls
+        example: "gls"
       carrier_track_id:
         type: string
-        example: '00157128520000003116'
+        example: "00157128520000003116"
       weight:
         type: string
-        example: '1.0'
+        example: "1.0"
       length:
         type: string
-        example: '1.0'
+        example: "1.0"
       height:
         type: string
-        example: '1.0'
+        example: "1.0"
       width:
         type: string
-        example: '1.0'
+        example: "1.0"
+
+  #endregion
+
+  #region Shipment Monitor Details
+
   Shipment Monitor Details:
     type: object
     properties:
@@ -3441,10 +3676,10 @@ definitions:
         example: 11460
       carrier_code:
         type: string
-        example: gls
+        example: "gls"
       carrier_track_id:
         type: string
-        example: '00157128520000003116'
+        example: "00157128520000003116"
       events:
         type: array
         items:
@@ -3452,23 +3687,26 @@ definitions:
           properties:
             status:
               type: string
-              example: GENERAL
+              example: "GENERAL"
             status_text:
               type: string
-              example: Forsendelse annulleret
+              example: "Forsendelse annulleret"
             registered_at:
               type: string
               format: date-time
-              example: '2017-06-16T08:25:44.557+02:00'
+              example: "2017-06-16T08:25:44.557+02:00"
             location:
               type: string
-              example: Taulov Pakkecenter
+              example: "Taulov Pakkecenter"
             city:
               type: string
-              example: Taulov
+              example: "Taulov"
             country_code:
               type: string
-              example: DK
+              example: "DK"
+  #endregion
+
+  #region Shipment Templates
   Shipment Template:
     type: object
     properties:
@@ -3477,36 +3715,40 @@ definitions:
         example: 11460
       name:
         type: string
-        example: GLS Shipments
+        example: "GLS Shipments"
       default:
         type: boolean
         example: true
       product_code:
         type: string
-        example: GLSDK_HD
+        example: "GLSDK_HD"
       own_agreement:
         type: boolean
         example: false
       sender:
-        $ref: '#/definitions/Shipment Template Sender'
+        $ref: "#/definitions/Shipment Template Sender"
       receiver:
-        $ref: '#/definitions/Shipment Template Receiver'
+        $ref: "#/definitions/Shipment Template Receiver"
       parcels:
         type: array
         items:
-          $ref: '#/definitions/Parcel Simple'
+          $ref: "#/definitions/Parcel Simple"
   Shipment Template Sender:
     type: object
     properties:
       country_code:
         type: string
-        example: DK
+        example: "DK"
   Shipment Template Receiver:
     type: object
     properties:
       country_code:
         type: string
-        example: DK
+        example: "DK"
+  #endregion
+
+  #region Return Portal
+
   Return Portal:
     type: object
     properties:
@@ -3518,14 +3760,18 @@ definitions:
         example: true
       portal_name:
         type: string
-        example: Return Portal
+        example: "Return Portal"
       carrier_code:
         type: string
-        example: gls
+        example: "gls"
   Return Portals:
     type: array
     items:
-      $ref: '#/definitions/Return Portal'
+      $ref: "#/definitions/Return Portal"
+  #endregion
+
+  #region Labels
+
   Labels:
     type: object
     properties:
@@ -3535,8 +3781,10 @@ definitions:
       labels:
         type: array
         items:
-          $ref: '#/definitions/Label'
-    description: ''
+          $ref: "#/definitions/Label"
+  #endregion
+
+  #region Quotes
   Create Quote Request:
     type: object
     required:
@@ -3544,44 +3792,44 @@ definitions:
     properties:
       product_code:
         type: string
-        example: GLSDK_SD
-        description: GLSDK_SD equals GLS (DK) Shop Delivery
+        example: "GLSDK_SD"
+        description: "GLSDK_SD equals GLS (DK) Shop Delivery"
       service_codes:
         type: string
-        example: 'EMAIL_NT,SMS_NT'
+        example: "EMAIL_NT,SMS_NT"
       sender:
-        $ref: '#/definitions/Quote Sender'
+        $ref: "#/definitions/Quote Sender"
       receiver:
-        $ref: '#/definitions/Quote Receiver'
+        $ref: "#/definitions/Quote Receiver"
       parcels:
         type: array
         items:
-          $ref: '#/definitions/Parcel Advanced'
+          $ref: "#/definitions/Parcel Advanced"
   Create Quote Response:
     type: object
     properties:
       carrier_code:
         type: string
-        example: gls
+        example: "gls"
       description:
         type: string
-        example: Til PakkeShop 0-1 kg
+        example: "Til PakkeShop 0-1 kg"
       product_code:
         type: string
-        example: GLSDK_SD
-        description: GLSDK_SD equals GLS (DK) Shop Delivery
+        example: "GLSDK_SD"
+        description: "GLSDK_SD equals GLS (DK) Shop Delivery"
       service_codes:
         type: string
-        example: 'EMAIL_NT,SMS_NT'
+        example: "EMAIL_NT,SMS_NT"
       price:
         type: number
-        example: '42.5'
+        example: "42.5"
       price_before_vat:
         type: number
-        example: '34.0'
+        example: "34.0"
   Quote Sender:
     type: object
-    description: Required
+    description: "Required"
     required:
       - address1
       - zipcode
@@ -3590,22 +3838,22 @@ definitions:
     properties:
       address1:
         type: string
-        example: Strandvejen 6B
+        example: "Strandvejen 6B"
       address2:
         type: string
         example: null
       zipcode:
         type: string
-        example: '5240'
+        example: "5240"
       city:
         type: string
-        example: Odense NØ
+        example: "Odense NØ"
       country_code:
         type: string
-        example: DK
+        example: "DK"
   Quote Receiver:
     type: object
-    description: Required
+    description: "Required"
     required:
       - address1
       - zipcode
@@ -3614,52 +3862,55 @@ definitions:
     properties:
       address1:
         type: string
-        example: Skibhusvej 52
+        example: "Skibhusvej 52"
       address2:
         type: string
         example: null
       zipcode:
         type: string
-        example: '5000'
+        example: "5000"
       city:
         type: string
-        example: Odense C
+        example: "Odense C"
       country_code:
         type: string
-        example: DK
+        example: "DK"
   Create Quote List Request:
     type: object
     properties:
       sender:
-        $ref: '#/definitions/Quote Sender'
+        $ref: "#/definitions/Quote Sender"
       receiver:
-        $ref: '#/definitions/Quote Receiver'
+        $ref: "#/definitions/Quote Receiver"
       parcels:
         type: array
         items:
-          $ref: '#/definitions/Parcel Simple'
+          $ref: "#/definitions/Parcel Simple"
   Create Quote List Response:
     type: object
     properties:
       carrier_code:
         type: string
-        example: gls
+        example: "gls"
       description:
         type: string
-        example: Til PakkeShop 0-1 kg
+        example: "Til PakkeShop 0-1 kg"
       product_code:
         type: string
-        example: GLSDK_SD
-        description: GLSDK_SD equals GLS (DK) Shop Delivery
+        example: "GLSDK_SD"
+        description: "GLSDK_SD equals GLS (DK) Shop Delivery"
       service_codes:
         type: string
-        example: 'EMAIL_NT,SMS_NT'
+        example: "EMAIL_NT,SMS_NT"
       price:
         type: number
-        example: '42.5'
+        example: "42.5"
       price_before_vat:
         type: number
-        example: '34.0'
+        example: "34.0"
+  #endregion
+
+  #region Sales Order
   Sales Order:
     type: object
     properties:
@@ -3668,20 +3919,20 @@ definitions:
         example: 11227
       order_id:
         type: string
-        example: '27000'
+        example: "27000"
       ordered_at:
         type: string
         format: date-time
-        example: '2017-06-16T08:25:44.557+02:00'
+        example: "2017-06-16T08:25:44.557+02:00"
       order_status:
         type: string
-        example: open
+        example: "open"
       fulfillment_status:
         type: string
-        example: authorized
+        example: "authorized"
       payment_status:
         type: string
-        example: unfulfilled
+        example: "unfulfilled"
       shipped_percent:
         type: integer
         example: 0
@@ -3693,206 +3944,215 @@ definitions:
         example: false
       source_name:
         type: string
-        example: Testcompany ApS
+        example: "Testcompany ApS"
       order_note:
         type: string
-        example: Note
+        example: "Note"
       created_at:
         type: string
         format: date-time
-        example: '2018-06-16T08:25:44.557+02:00'
+        example: "2018-06-16T08:25:44.557+02:00"
       updated_at:
         type: string
         format: date-time
-        example: '2018-06-16T08:25:44.557+02:00'
+        example: "2018-06-16T08:25:44.557+02:00"
       ship_to:
-        $ref: '#/definitions/Receiver'
+        $ref: "#/definitions/Receiver"
       bill_to:
-        $ref: '#/definitions/Sender'
+        $ref: "#/definitions/Sender"
       payment_details:
-        $ref: '#/definitions/Payment Details'
+        $ref: "#/definitions/Payment Details"
       service_point:
-        $ref: '#/definitions/Service Point Simple'
+        $ref: "#/definitions/Service Point Simple"
       order_lines:
         type: array
         items:
-          $ref: '#/definitions/Order Line'
+          $ref: "#/definitions/Order Line"
       order_fulfillments:
         type: array
         items:
-          $ref: '#/definitions/Fulfillment'
+          $ref: "#/definitions/Fulfillment"
   Create Sales Order Request:
     type: object
     properties:
       order_id:
         type: string
-        example: '27000'
+        example: "27000"
       ordered_at:
         type: string
         format: date-time
-        example: '2018-10-17T15:25:44.557+02:00'
+        example: "2018-10-17T15:25:44.557+02:00"
       source_name:
         type: string
-        example: Testcompany ApS
+        example: "Testcompany ApS"
       order_note:
         type: string
-        example: Note
+        example: "Note"
       archived:
         type: boolean
         example: false
       shipment_template_id:
         type: string
-        example: '710'
+        example: "710"
       packing_slip_format:
         type: string
         example: null
-        description: 'If packing_slip_format is specified, the packing slips will be included in the response. Available formats: a4_pdf, 10x19_pdf'
+        description: "If packing_slip_format is specified, the packing slips will be included in the response. Available formats: a4_pdf, 10x19_pdf"
       ship_to:
-        $ref: '#/definitions/Receiver'
+        $ref: "#/definitions/Receiver"
       bill_to:
-        $ref: '#/definitions/Sender'
+        $ref: "#/definitions/Sender"
       payment_details:
-        $ref: '#/definitions/Payment Details'
+        $ref: "#/definitions/Payment Details"
       service_point:
-        $ref: '#/definitions/Service Point Simple'
+        $ref: "#/definitions/Service Point Simple"
       order_lines:
         type: array
         items:
-          $ref: '#/definitions/Order Line Request'
+          $ref: "#/definitions/Order Line Request"
   Payment Details:
     type: object
     properties:
       amount_excluding_vat:
         type: string
-        example: '1600.0'
+        example: "1600.0"
       amount_including_vat:
         type: string
-        example: '2000.0'
+        example: "2000.0"
       authorized_amount:
         type: string
-        example: '2000.0'
+        example: "2000.0"
       currency_code:
         type: string
-        example: DKK
+        example: "DKK"
       vat_amount:
         type: string
-        example: '400.0'
+        example: "400.0"
       vat_percent:
         type: string
-        example: '0.25'
+        example: "0.25"
       payment_method:
         type: string
-        example: quickpay
+        example: "quickpay"
       transaction_id:
         type: string
-        example: '123456789'
+        example: "123456789"
       payment_gateway_id:
         type: string
-        example: '4012'
+        example: "4012"
   Update Sales Order Note:
     type: object
     properties:
       order_note:
         type: string
-        example: Note
+        example: "Note"
   Process Sales Order Barcode:
     type: object
     properties:
       barcode:
         type: string
-        example: QB000000027000
+        example: "QB000000027000"
+  #endregion
+
+  #region Order Lines
   Order Line:
     type: object
     properties:
       line_type:
         type: string
-        example: item
+        example: "item"
       item_name:
         type: string
-        example: T-Shirt
+        example: "T-Shirt"
       quantity:
         type: string
-        example: '2.0'
+        example: "2.0"
       unit_price_excluding_vat:
         type: string
-        example: '800.0'
+        example: "800.0"
       discount_amount_excluding_vat:
         type: string
-        example: '0.0'
+        example: "0.0"
       amount_excluding_vat:
         type: string
-        example: '1600.0'
+        example: "1600.0"
       amount_including_vat:
         type: string
-        example: '2000.0'
+        example: "2000.0"
       vat_amount:
         type: string
-        example: '400.0'
+        example: "400.0"
       vat_percent:
         type: string
-        example: '0.25'
+        example: "0.25"
       currency_code:
         type: string
-        example: DKK
+        example: "DKK"
       item_sku:
         type: string
-        example: TS001-WH
+        example: "TS001-WH"
       item_variant_code:
         type: string
-        example: White
+        example: "White"
       shipped_quantity:
         type: string
-        example: '0.0'
+        example: "0.0"
   Order Line Request:
     type: object
     properties:
       line_type:
         type: string
-        example: item
+        example: "item"
       item_name:
         type: string
-        example: T-Shirt
+        example: "T-Shirt"
       item_sku:
         type: string
-        example: TS001-WH
+        example: "TS001-WH"
       item_variant_code:
         type: string
-        example: White
+        example: "White"
       quantity:
         type: string
-        example: '2.0'
+        example: "2.0"
       unit_price_excluding_vat:
         type: string
-        example: '800.0'
+        example: "800.0"
       discount_amount_excluding_vat:
         type: string
-        example: '0.0'
+        example: "0.0"
       vat_percent:
         type: string
-        example: '0.25'
+        example: "0.25"
       currency_code:
         type: string
-        example: DKK
+        example: "DKK"
       unit_weight:
         type: integer
         example: 2000
+  #endregion
+
+  #region Fulfillments
   Fulfillment:
     type: object
     properties:
       code:
         type: string
-        example: 27000-1
+        example: "27000-1"
       shipment_id:
         type: integer
         example: 14500
       created_at:
         type: string
         format: date-time
-        example: '2018-06-16T08:25:44.557+02:00'
+        example: "2018-06-16T08:25:44.557+02:00"
       updated_at:
         type: string
         format: date-time
-        example: '2018-06-16T08:25:44.557+02:00'
+        example: "2018-06-16T08:25:44.557+02:00"
+  #endregion
+
+  #region Payment Gateway
   Payment Gateway:
     type: object
     properties:
@@ -3901,19 +4161,25 @@ definitions:
         example: 5314
       name:
         type: string
-        example: QuickPay 1
+        example: "QuickPay 1"
       provider:
         type: string
-        example: quick_pay
+        example: "quick_pay"
       merchant_number:
         type: string
-        example: '12345678'
+        example: "12345678"
+  #endregion
+
+  #region Documents
   Document:
     type: object
     properties:
       base64:
         type: string
-        example: JVBERi0xLjMKJf//////AAAAAA...
+        example: "JVBERi0xLjMKJf//////AAAAAA..."
+  #endregion
+
+  #region CMR Waybill
   CMR Waybill:
     type: object
     properties:
@@ -3922,102 +4188,102 @@ definitions:
         example: 23
       reference:
         type: string
-        example: CS000000000NO
+        example: "CS000000000NO"
       carrier_code:
         type: string
-        example: bring
+        example: "bring"
       created_at:
         type: string
         format: date-time
-        example: '2018-06-16T08:25:44.557+02:00'
+        example: "2018-06-16T08:25:44.557+02:00"
       sender:
         type: object
         properties:
           name:
             type: string
-            example: Min Virksomhed ApS
+            example: "Min Virksomhed ApS"
           address1:
             type: string
-            example: Strandvejen 6B
+            example: "Strandvejen 6B"
           address2:
             type: string
             example: null
           zipcode:
             type: string
-            example: '5240'
+            example: "5240"
           city:
             type: string
-            example: Odense NØ
+            example: "Odense NØ"
           country_code:
             type: string
-            example: DK
+            example: "DK"
       receiver:
         type: object
         properties:
           name:
             type: string
-            example: Lene Hansen
+            example: "Lene Hansen"
           address1:
             type: string
-            example: Skibhusvej 52
+            example: "Skibhusvej 52"
           address2:
             type: string
             example: null
           zipcode:
             type: string
-            example: '5000'
+            example: "5000"
           city:
             type: string
-            example: Odense C
+            example: "Odense C"
           country_code:
             type: string
-            example: DK
+            example: "DK"
       loading:
         type: object
         properties:
           name:
             type: string
-            example: Lene Hansen
+            example: "Lene Hansen"
           address1:
             type: string
-            example: Skibhusvej 52
+            example: "Skibhusvej 52"
           address2:
             type: string
             example: null
           zipcode:
             type: string
-            example: '5000'
+            example: "5000"
           city:
             type: string
-            example: Odense C
+            example: "Odense C"
           country_code:
             type: string
-            example: DK
+            example: "DK"
           date:
             type: string
             format: date-time
-            example: '2019-01-30T14:54:29+01:00'
+            example: "2019-01-30T14:54:29+01:00"
       delivery:
         type: object
         properties:
           name:
             type: string
-            example: Min Virksomhed ApS
+            example: "Min Virksomhed ApS"
           address1:
             type: string
-            example: Strandvejen 6B
+            example: "Strandvejen 6B"
           address2:
             type: string
             example: null
           zipcode:
             type: string
-            example: '5240'
+            example: "5240"
           city:
             type: string
-            example: Odense NØ
+            example: "Odense NØ"
           country_code:
             type: string
-            example: DK
+            example: "DK"
       shipment:
         type: object
         properties:
@@ -4026,11 +4292,11 @@ definitions:
             example: 123456
           label_base64:
             type: string
-            example: ...
+            example: '...'
       base64:
         type: string
         description: Base64 encoded string of CMR Waybill PDF
-        example: ...
+        example: "..."
   CMR Waybill No Base64:
     type: object
     properties:
@@ -4039,102 +4305,102 @@ definitions:
         example: 23
       reference:
         type: string
-        example: CS000000000NO
+        example: "CS000000000NO"
       carrier_code:
         type: string
-        example: bring
+        example: "bring"
       created_at:
         type: string
         format: date-time
-        example: '2018-06-16T08:25:44.557+02:00'
+        example: "2018-06-16T08:25:44.557+02:00"
       sender:
         type: object
         properties:
           name:
             type: string
-            example: Min Virksomhed ApS
+            example: "Min Virksomhed ApS"
           address1:
             type: string
-            example: Strandvejen 6B
+            example: "Strandvejen 6B"
           address2:
             type: string
             example: null
           zipcode:
             type: string
-            example: '5240'
+            example: "5240"
           city:
             type: string
-            example: Odense NØ
+            example: "Odense NØ"
           country_code:
             type: string
-            example: DK
+            example: "DK"
       receiver:
         type: object
         properties:
           name:
             type: string
-            example: Lene Hansen
+            example: "Lene Hansen"
           address1:
             type: string
-            example: Skibhusvej 52
+            example: "Skibhusvej 52"
           address2:
             type: string
             example: null
           zipcode:
             type: string
-            example: '5000'
+            example: "5000"
           city:
             type: string
-            example: Odense C
+            example: "Odense C"
           country_code:
             type: string
-            example: DK
+            example: "DK"
       loading:
         type: object
         properties:
           name:
             type: string
-            example: Lene Hansen
+            example: "Lene Hansen"
           address1:
             type: string
-            example: Skibhusvej 52
+            example: "Skibhusvej 52"
           address2:
             type: string
             example: null
           zipcode:
             type: string
-            example: '5000'
+            example: "5000"
           city:
             type: string
-            example: Odense C
+            example: "Odense C"
           country_code:
             type: string
-            example: DK
+            example: "DK"
           date:
             type: string
             format: date-time
-            example: '2019-01-30T14:54:29+01:00'
+            example: "2019-01-30T14:54:29+01:00"
       delivery:
         type: object
         properties:
           name:
             type: string
-            example: Min Virksomhed ApS
+            example: "Min Virksomhed ApS"
           address1:
             type: string
-            example: Strandvejen 6B
+            example: "Strandvejen 6B"
           address2:
             type: string
             example: null
           zipcode:
             type: string
-            example: '5240'
+            example: "5240"
           city:
             type: string
-            example: Odense NØ
+            example: "Odense NØ"
           country_code:
             type: string
-            example: DK
+            example: "DK"
       shipment:
         type: object
         properties:
@@ -4152,7 +4418,7 @@ definitions:
     properties:
       carrier_code:
         type: string
-        example: bring
+        example: "bring"
       sender:
         type: object
         required:
@@ -4161,26 +4427,26 @@ definitions:
           - zipcode
           - city
           - country_code
-        description: Required
+        description: "Required"
         properties:
           name:
             type: string
-            example: Min Virksomhed ApS
+            example: "Min Virksomhed ApS"
           address1:
             type: string
-            example: Strandvejen 6B
+            example: "Strandvejen 6B"
           address2:
             type: string
             example: null
           zipcode:
             type: string
-            example: '5240'
+            example: "5240"
           city:
             type: string
-            example: Odense NØ
+            example: "Odense NØ"
           country_code:
             type: string
-            example: DK
+            example: "DK"
       receiver:
         type: object
         required:
@@ -4189,76 +4455,76 @@ definitions:
           - zipcode
           - city
           - country_code
-        description: Required
+        description: "Required"
         properties:
           name:
             type: string
-            example: Lene Hansen
+            example: "Lene Hansen"
           address1:
             type: string
-            example: Skibhusvej 52
+            example: "Skibhusvej 52"
           address2:
             type: string
             example: null
           zipcode:
             type: string
-            example: '5000'
+            example: "5000"
           city:
             type: string
-            example: Odense C
+            example: "Odense C"
           country_code:
             type: string
-            example: DK
+            example: "DK"
       loading:
         type: object
         required:
           - date
-        description: 'Optional, except date. If all fields are not included Receiver is copied'
+        description: "Optional, except date. If all fields are not included Receiver is copied"
         properties:
           name:
             type: string
-            example: Lene Hansen
+            example: "Lene Hansen"
           address1:
             type: string
-            example: Skibhusvej 52
+            example: "Skibhusvej 52"
           address2:
             type: string
             example: null
           zipcode:
             type: string
-            example: '5000'
+            example: "5000"
           city:
             type: string
-            example: Odense C
+            example: "Odense C"
           country_code:
             type: string
-            example: DK
+            example: "DK"
           date:
             type: string
             format: date-time
-            example: '2019-01-30T14:54:29+01:00'
+            example: "2019-01-30T14:54:29+01:00"
       delivery:
         type: object
-        description: Optional. If all fields are not included Sender is copied to these fields
+        description: "Optional. If all fields are not included Sender is copied to these fields"
         properties:
           name:
             type: string
-            example: Min Virksomhed ApS
+            example: "Min Virksomhed ApS"
           address1:
             type: string
-            example: Strandvejen 6B
+            example: "Strandvejen 6B"
           address2:
             type: string
             example: null
           zipcode:
             type: string
-            example: '5240'
+            example: "5240"
           city:
             type: string
-            example: Odense NØ
+            example: "Odense NØ"
           country_code:
             type: string
-            example: DK
+            example: "DK"
       packages:
         type: array
         items:
@@ -4266,17 +4532,21 @@ definitions:
           properties:
             product_code:
               type: string
-              example: BRI_PPB
+              example: "BRI_PPB"
             package_type:
               type: string
-              example: PARCEL
+              example: "PARCEL"
             amount:
               type: integer
               example: 3
             weight:
               type: integer
-              description: Weight of pallet/parcels in grams
+              description: 'Weight of pallet/parcels in grams'
               example: 1000
+
+  #endregion
+
+  #region Pickup Request
   Pickup Request:
     type: object
     properties:
@@ -4285,55 +4555,55 @@ definitions:
         example: 15242
       carrier_code:
         type: string
-        example: ups
+        example: "ups"
       pickup_address:
         type: object
         properties:
           company_name:
             type: string
-            example: Min Virksomhed ApS
+            example: "Min Virksomhed ApS"
           address1:
             type: string
-            example: Strandvejen 6B
+            example: "Strandvejen 6B"
           address2:
             type: string
             example: null
           zipcode:
             type: string
-            example: '5240'
+            example: "5240"
           city:
             type: string
-            example: Odense NØ
+            example: "Odense NØ"
           country_code:
             type: string
-            example: DK
+            example: "DK"
           contact_name:
             type: string
-            example: Hans Hansen
+            example: 'Hans Hansen'
           contact_phone:
             type: string
             example: '70400407'
       confirmation_number:
         type: string
-        example: 123C21B215M
+        example: "123C21B215M"
       status:
         type: string
-        example: confirmed
+        example: "confirmed"
       date:
         type: string
         format: date-time
-        example: '2019-02-14T00:00:00+01:00'
+        example: "2019-02-14T00:00:00+01:00"
       ready_by:
         type: string
         format: date-time
-        example: '2019-02-14T09:00:00+01:00'
+        example: "2019-02-14T09:00:00+01:00"
       closed_by:
         type: string
         format: date-time
-        example: '2019-02-14T16:00:00+01:00'
+        example: "2019-02-14T16:00:00+01:00"
       package_location:
         type: string
-        example: Ved hoveddøren
+        example: 'Ved hoveddøren'
       number_of_pieces:
         type: integer
         example: 3
@@ -4351,6 +4621,7 @@ definitions:
             id:
               type: integer
               example: 12515122
+
   Pickup Request No Shipments:
     type: object
     properties:
@@ -4359,55 +4630,55 @@ definitions:
         example: 15242
       carrier_code:
         type: string
-        example: ups
+        example: "ups"
       pickup_address:
         type: object
         properties:
           company_name:
             type: string
-            example: Min Virksomhed ApS
+            example: "Min Virksomhed ApS"
           address1:
             type: string
-            example: Strandvejen 6B
+            example: "Strandvejen 6B"
           address2:
             type: string
             example: null
           zipcode:
             type: string
-            example: '5240'
+            example: "5240"
           city:
             type: string
-            example: Odense NØ
+            example: "Odense NØ"
           country_code:
             type: string
-            example: DK
+            example: "DK"
           contact_name:
             type: string
-            example: Hans Hansen
+            example: 'Hans Hansen'
           contact_phone:
             type: string
             example: '70400407'
       confirmation_number:
         type: string
-        example: 123C21B215M
+        example: "123C21B215M"
       status:
         type: string
-        example: confirmed
+        example: "confirmed"
       date:
         type: string
         format: date-time
-        example: '2019-02-14T00:00:00+01:00'
+        example: "2019-02-14T00:00:00+01:00"
       ready_by:
         type: string
         format: date-time
-        example: '2019-02-14T09:00:00+01:00'
+        example: "2019-02-14T09:00:00+01:00"
       closed_by:
         type: string
         format: date-time
-        example: '2019-02-14T16:00:00+01:00'
+        example: "2019-02-14T16:00:00+01:00"
       package_location:
         type: string
-        example: Ved hoveddøren
+        example: 'Ved hoveddøren'
       number_of_pieces:
         type: integer
         example: 3
@@ -4417,6 +4688,7 @@ definitions:
       is_residential:
         type: boolean
         example: false
+
   Create Pickup Request Request:
     type: object
     required:
@@ -4430,7 +4702,7 @@ definitions:
     properties:
       carrier_code:
         type: string
-        example: ups
+        example: "ups"
       pickup_address:
         type: object
         required:
@@ -4441,43 +4713,43 @@ definitions:
           - country_code
           - contact_name
           - contact_phone
-        description: Required
+        description: "Required"
         properties:
           company_name:
             type: string
-            example: Min Virksomhed ApS
+            example: "Min Virksomhed ApS"
           address1:
             type: string
-            example: Strandvejen 6B
+            example: "Strandvejen 6B"
           address2:
             type: string
             example: null
           zipcode:
             type: string
-            example: '5240'
+            example: "5240"
           city:
             type: string
-            example: Odense NØ
+            example: "Odense NØ"
           country_code:
             type: string
-            example: DK
+            example: "DK"
           contact_name:
             type: string
-            example: Hans Hansen
+            example: 'Hans Hansen'
           contact_phone:
             type: string
             example: '70400407'
       package_location:
         type: string
-        example: Ved hoveddøren
+        example: 'Ved hoveddøren'
       ready_by:
         type: string
         format: date-time
-        example: '2019-02-14T09:00:00+01:00'
+        example: "2019-02-14T09:00:00+01:00"
       closed_by:
         type: string
         format: date-time
-        example: '2019-02-14T16:00:00+01:00'
+        example: "2019-02-14T16:00:00+01:00"
       shipment_ids:
         type: array
         items:
@@ -4486,3 +4758,8 @@ definitions:
       is_residential:
         type: boolean
         example: false
+  #endregion
+
+# externalDocs:
+#   description: Find out more about Swagger
+#   url: 'http://swagger.io'
