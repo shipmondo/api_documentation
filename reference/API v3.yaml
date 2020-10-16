@@ -1,26 +1,8 @@
 swagger: '2.0'
-info:
-  description: |
-    This is the official API for Shipmondo. The current version is v3.
-
-    We recommend new implementations should be based on this version.
-
-    The API provides multiple endpoints to Shipmondo. You need to have a credential, which consists of an API username and API key.
-
-    You can achieved them through a Shipmondo account, under the Settings page.
-
-    The credential must be passed through every request by using HTTP Basic Authentication technique.
-
-    Should we introduce any new changes in the API which will break the structure of any existing API calls, these new changes will be introduced in a new version. This ensures that any systems which integrates up against our system will not be affected.
-
-    The older API V2 is still being supported but no longer extended. Documentation: https://api.pakkelabels.dk/v2/
-
-    We provide an official library for PHP: https://github.com/shipmondo/shipmondo_php_sdk
-
-  version: 3.0.0
-  title: Shipmondo API v3
-  contact:
-    email: support@shipmondo.com
+version: 3.0.0
+title: API v3
+contact:
+  email: support@shipmondo.com
 
 host: 'app.shipmondo.com'
 
