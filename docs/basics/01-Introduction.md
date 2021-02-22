@@ -9,7 +9,7 @@ Depending on the purpose of your application and your needs, you can choose whic
 
 ### Shipments
 
-If your application needs Shipmondo to book a shipment and return the shipping label then the endpoints under [Shipments](../../reference/Shipment.v1.yaml) are what you are looking for.
+If your application needs Shipmondo to book a shipment and return the shipping label then the endpoints under  are what you are looking for.
 
 #### Draft shipments
 
