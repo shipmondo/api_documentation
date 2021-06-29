@@ -149,5 +149,14 @@
         }
       }
     }
+  },
+  "components": {
+    "securitySchemes": {
+      "API Key - 1": {
+        "type": "http",
+        "scheme": "basic",
+        "description": "Username and password"
+      }
+    }
   }
 }
